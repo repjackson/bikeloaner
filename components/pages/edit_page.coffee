@@ -4,7 +4,9 @@ if Meteor.isClient
     
     
     Template.edit_page.helpers
-        page: -> Pages.findOne()
+        page: -> 
+            Pages.findOne
+                _id: FlowRouter.getParam('page_id')
         
     
         getFEContext: ->

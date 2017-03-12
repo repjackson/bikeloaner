@@ -1,10 +1,12 @@
 .ui.huge.inverted.borderless.stackable.menu
     .ui.text.container
         a.header.item(href='/' class="{{isActivePath '/'}}") Home
-        a.header.item(href='/about' class="{{isActivePath '/about'}}") About Us
-        a.header.item(href='/contact' class="{{isActivePath '/contact'}}") Contact
-        a.header.item(href='/faq' class="{{isActivePath '/faq'}}") FAQ
-        a.header.item(href='/volunteer' class="{{isActivePath '/volunteer'}}") Volunteer
+        a.item(href='/about' class="{{isActivePath '/about'}}") About Us
+        a.item(href='/contact' class="{{isActivePath '/contact'}}") Contact
+        a.item(href='/faq' class="{{isActivePath '/faq'}}") FAQ
+        a.item(href='/volunteer' class="{{isActivePath '/volunteer'}}") Volunteer
+        a.icon.item(href='/scheduling' class="{{isActivePath '/scheduling'}}")
+            i.checked.calendar.icon
     .right.menu
         if currentUser
             if isInRole 'admin'
