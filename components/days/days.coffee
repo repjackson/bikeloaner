@@ -25,7 +25,9 @@ FlowRouter.route '/scheduling', action: (params) ->
 
 if Meteor.isClient
     Template.scheduling.onCreated -> 
-        @autorun -> Meteor.subscribe('days')
+        @autorun -> 
+            Meteor.subscribe('days')
+            Meteor.subscribe('day_volunteers')
 
     Template.scheduling.helpers
         volunteer_days: -> 
@@ -35,14 +37,45 @@ if Meteor.isClient
                     
         formatted_date: ->
             moment(@date).format("dddd, MMMM Do")
-                    
+                   
+        volunteer: ->
+            Meteor.users.findOne @valueOf()
+                   
+        signed_up_for_first: ->
+            Meteor.userId() in @slot_1_volunteers
+    
+        signed_up_for_second: ->
+            Meteor.userId() in @slot_2_volunteers
     
     Template.scheduling.events
         'click #add_day': -> 
             id = Days.insert {}
             FlowRouter.go "/day/edit/#{id}"
 
+        'click #join_first_shift': -> 
+            Days.update @_id,
+                $addToSet: 
+                    slot_1_volunteers: Meteor.userId()
+            
+        'click #leave_first_shift': -> 
+            Days.update @_id,
+                $pull: 
+                    slot_1_volunteers: Meteor.userId()
 
+        
+        
+        'click #join_second_shift': -> 
+            Days.update @_id,
+                $addToSet: 
+                    slot_2_volunteers: Meteor.userId()
+                
+            
+        'click #leave_second_shift': -> 
+            Days.update @_id,
+                $pull: 
+                    slot_2_volunteers: Meteor.userId()
+                
+        
 
 if Meteor.isServer
     Days.allow
@@ -55,6 +88,9 @@ if Meteor.isServer
         
     Meteor.publish 'days', ()->
         Days.find()
+        
+    Meteor.publish 'day_volunteers', ()->
+        Meteor.users.find()
         
         
         

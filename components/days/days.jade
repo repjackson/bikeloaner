@@ -14,26 +14,38 @@ template(name='scheduling')
                     td 
                         .ui.list
                             each slot_1_volunteers
-                                .item #{this}
-                        if signed_up
-                            .ui.basic.button
+                                .item
+                                    img.ui.avatar.image(src="{{c.url volunteer.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                                    .content 
+                                        .header #{volunteer.profile.first_name} #{volunteer.profile.last_name}
+                                        .description
+                                            each volunteer.tags
+                                                .ui.basic.small.label #{this}
+                        if signed_up_for_first
+                            #leave_first_shift.ui.basic.button
                                 i.red.remove.icon
                                 | Leave
                         else
-                            .ui.basic.button
+                            #join_first_shift.ui.basic.button
                                 i.green.plus.icon
                                 | Join
                             
                     td 
                         .ui.list
                             each slot_2_volunteers
-                                .item #{this}
-                        if signed_up
-                            .ui.basic.button
+                                .item
+                                    img.ui.avatar.image(src="{{c.url volunteer.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                                    .content 
+                                        .header #{volunteer.profile.first_name} #{volunteer.profile.last_name}
+                                        .description
+                                            each volunteer.tags
+                                                .ui.basic.small.label #{this}
+                        if signed_up_for_second
+                            #leave_second_shift.ui.basic.button
                                 i.red.remove.icon
                                 | Leave
                         else
-                            .ui.basic.button
+                            #join_second_shift.ui.basic.button
                                 i.green.plus.icon
                                 | Join
     

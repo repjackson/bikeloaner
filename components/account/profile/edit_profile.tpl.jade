@@ -31,23 +31,6 @@
                         each emails
                             .ui.basic.label #{address}
                     .field
-                        label Company 
-                        .ui.input
-                            input#company(type='text' value=profile.company)
-                    .field
-                        label Position 
-                        .ui.input
-                            input#position(type='text' value=profile.position)
-                    .field
-                        label Website 
-                        .ui.input
-                            input#website(type='text' value=profile.website)
-                    .field
-                        label What Working On / Interest in Social Change 
-                        .ui.input
-                            textarea#pro_bio(type='textarea' rows='2')
-                                |#{profile.pro_bio}
-                    .field
                         label Tags (anything to identify you with)
                         each tags
                             .ui.basic.button.person_tag
@@ -57,21 +40,6 @@
                             i.add.icon
                             input#add_tag(type='text' placeholder='Press enter after each one' maxlength='50')
 
-                    .field
-                        label Needs 
-                        .ui.input
-                            textarea#needs(type='textarea' rows='2')
-                                |#{profile.needs}
-                    // .field
-                    //     label Tags
-                    //     each tags
-                    //         .ui.small.basic.circular.button.person_tag
-                    //             i.minus.icon
-                    //             |#{this}
-                    //     // unless ten_tags
-                    //     .ui.left.icon.input
-                    //         i.add.icon
-                    //         input#add_tag(type='text' placeholder='Press enter after each tag' maxlength='30')
                     // .ui.segment
                     //     .ui.header 
                     //         i.hide.icon
