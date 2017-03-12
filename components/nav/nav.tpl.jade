@@ -1,0 +1,29 @@
+.ui.huge.inverted.borderless.stackable.menu
+    .ui.text.container
+        a.header.item(href='/' class="{{isActivePath '/'}}") Home
+        a.header.item(href='/about' class="{{isActivePath '/about'}}") About Us
+        a.header.item(href='/contact' class="{{isActivePath '/contact'}}") Contact
+        a.header.item(href='/faq' class="{{isActivePath '/faq'}}") FAQ
+        a.header.item(href='/volunteer' class="{{isActivePath '/volunteer'}}") Volunteer
+    .right.menu
+        if currentUser
+            if isInRole 'admin'
+                a.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
+                    i.configure.icon
+                    | Admin
+            a.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
+                if currentUser.profile.image_id
+                    img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
+                else
+                    i.user.icon
+                if currentUser.name
+                    | #{currentUser.name}
+                else
+                    | Profile
+            a#logout.ui.item(href='#') 
+                i.sign.out.icon
+                | Sign Out
+        else
+            a.ui.item(href='/sign-in') 
+                i.sign.in.icon
+                | Sign In
