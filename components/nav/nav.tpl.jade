@@ -7,6 +7,14 @@
         a.item(href='/volunteer' class="{{isActivePath '/volunteer'}}") Volunteer
         a.icon.item(href='/scheduling' class="{{isActivePath '/scheduling'}}")
             i.checked.calendar.icon
+        if isInRole 'admin'
+            a#toggle_admin_mode.item(href='#' data-position="bottom center" data-content="Toggle Admin Mode") 
+                .ui.image
+                    if admin_mode
+                        +icon48 name='user-shield' classes='ui image'
+                    else
+                        +dots50 name='user-shield' classes='ui image'
+
     .right.menu
         if currentUser
             if isInRole 'admin'

@@ -101,13 +101,13 @@ if Meteor.isClient
  
  
         
-if Meteor.isServer
-    Meteor.publish 'tori_members', ->
-        match = {}
-        match.site = 'tori'
-        Meteor.users.find match
+# if Meteor.isServer
+#     Meteor.publish 'tori_members', ->
+#         match = {}
+#         match.site = 'tori'
+#         Meteor.users.find match
          
-    Accounts.onCreateUser (options, user) ->
-        user.site = 'tori'
-        console.log user
-        user
+    # Accounts.onCreateUser (options, user) ->
+    #     user.site = 'tori'
+    #     console.log user
+    #     user

@@ -1,19 +1,23 @@
 template(name='footer')
     .ui.basic.fluid.segment.footer
         .ui.divider
-        .ui.container.grid
-            .eight.wide.column
-                .ui.center.aligned.basic.segment
-                    .ui.header
-                        |Have we connected on social media?
-                    a(href='https://twitter.com/_toriwebster')
-                        i.huge.twitter.link.teal.icon
-                    a(href='https://www.instagram.com/_toriwebster/')
-                        i.huge.instagram.link.teal.icon
-                +mailchimp
-            .eight.wide.column
-                +twitter
+        .ui.centered.grid
+            .two.wide.column
+                .ui.header Follow Us
+                a(href='https://www.facebook.com/bikeloanerprogram/')
+                    i.big.facebook.link.blue.icon
+            .six.wide.column
+                .ui.header Links of Interest
+                .ui.list
+                    a.item Chesapeake and Ohio Canal National Historical Park
+                    a.item Williamsport Visitors Center, NPS
+                    a.item C&O Canal Bicycling Guide
+            .six.wide.column
+                .ui.header Emergency Contact Information
+                p If you are lost on the tow path or have a mechanical problem with a Bike Loaner Program bike, call the Great Falls Tavern Visitors Center in MD at (301) 767-3714.
+
         .row
+            .ui.divider
             .ui.center.aligned.header
                 i.copyright.icon
-                |Tori Webster
+                |C&O Canal Bike Loaner Program, 2018. All Rights Reserved
