@@ -21,10 +21,4 @@ template(name='user')
                         | #{profile.last_name}
             each five_tags
                 .ui.compact.tiny.circular.basic.button.user_tag(class=user_tag_class) #{this}
-            if profile.company
-                p #{profile.company}
-            if profile.position
-                p #{profile.position}
-            if profile.location
-                p #{profile.location}
 

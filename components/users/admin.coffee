@@ -1,35 +1,6 @@
 
-FlowRouter.route '/admin/members', action: (params) ->
-    BlazeLayout.render 'layout',
-        nav: 'nav'
-        sub_nav: 'admin_nav'
-        main: 'user_table'
- 
- 
 if Meteor.isClient
-    Template.user_table.onCreated ->
-        self = @
-        self.autorun ->
-            self.subscribe 'tori_members'
-    
-    
-    Template.user_table.helpers
-        tori_members: -> 
-            Meteor.users.find {}
-            
-        user_is_admin: -> 
-            # console.log @
-            Roles.userIsInRole(@_id, 'admin')
-    
-        user_is_member: -> 
-            # console.log @
-            Roles.userIsInRole(@_id, 'member')
-    
-    
-    
-    
-    
-    Template.user_table.events
+    Template.users.events
         'click .remove_admin': ->
             self = @
             swal {
@@ -95,19 +66,3 @@ if Meteor.isClient
                 Roles.addUsersToRoles self._id, 'member'
                 swal "Made #{self.emails[0].address} an member", "",'success'
                 return
-    
-    
-    
- 
- 
-        
-# if Meteor.isServer
-#     Meteor.publish 'tori_members', ->
-#         match = {}
-#         match.site = 'tori'
-#         Meteor.users.find match
-         
-    # Accounts.onCreateUser (options, user) ->
-    #     user.site = 'tori'
-    #     console.log user
-    #     user

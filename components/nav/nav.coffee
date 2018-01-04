@@ -1,7 +1,6 @@
 if Meteor.isClient
     Template.nav.events
-        'click #logout': -> 
-            AccountsTemplates.logout()
+        'click #logout': -> AccountsTemplates.logout()
             
         'click #toggle_admin_mode': ->
             if Session.equals('admin_mode', true) then Session.set('admin_mode', false)
@@ -12,17 +11,5 @@ if Meteor.isClient
 
         
     Template.nav.onCreated ->
-        @autorun -> 
-            Meteor.subscribe 'me'
+        @autorun -> Meteor.subscribe 'me'
         
-    Template.nav.helpers
-        notifications: -> 
-            Notifications.find()
-
-
-
-if Meteor.isServer
-    Meteor.publish 'me', ->
-        Meteor.users.find @userId,
-            fields: 
-                courses: 1

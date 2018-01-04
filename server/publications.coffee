@@ -258,9 +258,22 @@ Meteor.publish 'components', ->
         # type: 'component'
         parent_id: 'MzHSPbvCYPngq2Dcz'            
             
+Meteor.publish 'my_profile', ->
+    Meteor.users.find @userId,
+        fields:
+            tags: 1
+            profile: 1
+            username: 1
+            published: 1
+            image_id: 1
+
+
+Meteor.publish 'user_profile', (id)->
+    Meteor.users.find id,
+        fields:
+            tags: 1
+            profile: 1
+            username: 1
+            published: 1
+            image_id: 1
             
-# Meteor.publish 'doc_template', (doc_id)->
-#     doc = Docs.findOne doc_id
-#     Docs.find
-#         type: 'doc_template'
-#         doc_type: doc.type

@@ -377,20 +377,3 @@ Template.set_view_mode.helpers
 Template.set_view_mode.events
     'click #set_view_mode': -> Session.set 'view_mode', @value
     
-Template.editing_session_question.helpers
-    response: ->
-        Docs.findOne 
-            author_id: Meteor.userId()
-            parent_id: @_id
-            
-Template.editing_session_question.onCreated -> 
-    Meteor.subscribe 'author', @data._id
-    Meteor.subscribe 'child_docs', @data._id
-            
-Template.editing_session_question.events
-    'click .create_response': ->
-        new_id = Docs.insert
-            parent_id: @_id
-        Session.set 'editing_id', new_id
-
-      

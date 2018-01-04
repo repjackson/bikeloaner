@@ -67,15 +67,3 @@ if Meteor.isClient
                 message = Messages.findOne FlowRouter.getParam('message_id')
                 Messages.remove message._id, ->
                     FlowRouter.go "/messages"
-
-            
-            
-if Meteor.isServer
-    Meteor.publish 'usernames', ->
-        Meteor.users.find {},
-            fields:
-                "profile.name": 1
-                
-                
-    # Meteor.publish 'message', (id)->
-    #     Messages.find id

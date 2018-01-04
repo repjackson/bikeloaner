@@ -50,6 +50,10 @@ Template.registerHelper 'admin_mode', () ->  Session.get 'admin_mode'
 Template.registerHelper 'editing', () ->  
     Session.get('editing') or Session.equals('editing_id', @_id)
 
+Template.registerHelper 'user_is_admin', () -> Roles.userIsInRole(@_id, 'admin')
+    
+Template.registerHelper 'user_is_member', () -> Roles.userIsInRole(@_id, 'member')
+    
 
 # Template.registerHelper 'is_admin', () ->  
 #     Roles.userIsInRole(Meteor.userId(), 'admin') and Session.equals 'admin_mode', true

@@ -1,26 +1,30 @@
-.ui.huge.inverted.borderless.stackable.menu
-    .ui.text.container
-        a.header.item(href='/' class="{{isActivePath '/'}}") Home
-        a.item(href='/about' class="{{isActivePath '/about'}}") About Us
-        a.item(href='/contact' class="{{isActivePath '/contact'}}") Contact
-        a.item(href='/faq' class="{{isActivePath '/faq'}}") FAQ
-        a.item(href='/volunteer' class="{{isActivePath '/volunteer'}}") Volunteer
-        a.icon.item(href='/scheduling' class="{{isActivePath '/scheduling'}}")
-            i.checked.calendar.icon
-        if isInRole 'admin'
-            a#toggle_admin_mode.item(href='#' data-position="bottom center" data-content="Toggle Admin Mode") 
-                .ui.image
-                    if admin_mode
-                        +icon48 name='user-shield' classes='ui image'
-                    else
-                        +dots50 name='user-shield' classes='ui image'
+.ui.huge.borderless.stackable.menu
+    a.header.item(href='/' class="{{isActivePath '/'}}") 
+    a.mobile.hidden.item(href='/view/ds6wsM4sRzKvrcKpc' class="{{isActivePath '/view/ds6wsM4sRzKvrcKpc'}}" data-position="bottom center" data-content="Lightbank") 
+        .ui.image
+            +icon48 name='home' classes='ui image'
+    a.item(href='/view/r6uxW7rYDTt36xGRz' class="{{isActivePath '/view/r6uxW7rYDTt36xGRz'}}") 
+        .ui.image
+            +icon48 name='info' classes='ui image'
+        // |About Us
+    a.item(href='/view/3DY48QNXFCX4ZijKD' class="{{isActivePath '/view/3DY48QNXFCX4ZijKD'}}") 
+        // |Contact
+        .ui.image
+            +icon48 name='phone' classes='ui image'
+    a.item(href='/faq' class="{{isActivePath '/faq'}}") FAQ
+    a.item(href='/volunteer' class="{{isActivePath '/volunteer'}}") Volunteer
+    a.icon.item(href='/scheduling' class="{{isActivePath '/scheduling'}}")
+        i.checked.calendar.icon
+    if isInRole 'admin'
+        a#toggle_admin_mode.item(href='#' data-position="bottom center" data-content="Toggle Admin Mode") 
+            .ui.image
+                if admin_mode
+                    +icon48 name='user-shield' classes='ui image'
+                else
+                    +dots50 name='user-shield' classes='ui image'
 
     .right.menu
         if currentUser
-            if isInRole 'admin'
-                a.item(href='/admin/members' class="{{isActivePath '/admin/members'}}")
-                    i.configure.icon
-                    | Admin
             a.item(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
                 if currentUser.profile.image_id
                     img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")

@@ -1,23 +1,3 @@
-# Template.q_a.helpers
-#     sessions: ->
-#         Docs.find
-#             parent_id: FlowRouter.getParam('doc_id')
-#             type: 'session'
-    
-#     questions: ->
-#         Docs.find
-#             parent_id: FlowRouter.getParam('doc_id')
-#             type: $ne: 'session'
-
-
-Template.sessions.helpers
-    my_sessions: ->
-        Docs.find
-            type: 'session'
-            author_id: Meteor.userId()
-            parent_id: FlowRouter.getParam('doc_id')
-
-
 Template.card_view.helpers
     child_view_fields: ->
         doc = Docs.findOne FlowRouter.getParam('doc_id')

@@ -28,14 +28,3 @@ if Meteor.isClient
     Template.user.helpers
         five_tags: -> if @tags then @tags[..4]
     
-
-
-if Meteor.isServer
-    Meteor.publish 'people', (selected_user_tags)->
-        match = {}
-        if selected_user_tags.length > 0 then match.tags = $all: selected_user_tags
-        # match._id = $ne: @userId
-        Meteor.users.find match,
-            limit: 20
-    
-    
