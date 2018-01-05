@@ -62,9 +62,9 @@ Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
 #   return
 
 
-Docs.after.insert (userId, doc)->
-    if doc.parent_id
-        Meteor.call 'calculate_child_count', doc.parent_id
+# Docs.after.insert (userId, doc)->
+#     if doc.parent_id
+#         Meteor.call 'calculate_child_count', doc.parent_id
     
     
 Docs.after.remove (userId, doc)->

@@ -42,24 +42,6 @@ Template.view_doc.onCreated ->
 Template.view_doc.helpers
     doc: -> Docs.findOne FlowRouter.getParam('doc_id')
     
-    younger_sibling: ->
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
-        if doc.number
-            previous_number = doc.number - 1
-            Docs.findOne
-                group: doc.group
-                parent_id: doc.parent_id
-                number: previous_number
-
-    older_sibling: ->
-        doc = Docs.findOne FlowRouter.getParam('doc_id')
-        if doc.number
-            next_number = doc.number + 1
-            Docs.findOne
-                group: doc.group
-                parent_id: doc.parent_id
-                number: next_number
-
     children: ->
         doc = Docs.findOne FlowRouter.getParam('doc_id')
 
@@ -111,16 +93,9 @@ Template.view_doc.helpers
     main_column_class: -> 
         if Session.equals 'editing', true 
             'ten wide column' 
-        else if Session.equals 'admin_mode', true
-            'eight wide column' 
-        else if @child_view is 'nav' and !@theme_tags_facet
-            'fourteen wide column'
         else
-            'eight wide column'
-        # else if @theme_tags_facet or @location_tags_facet or @intention_tags_facet or @username_facet
-        #     'eight wide column'
-        # else
-        #     'fourteen wide column'
+            'sixteen wide column'
+
     field_segment_class: -> if Session.equals 'editing', true then '' else 'basic compact'
     
     
@@ -192,29 +167,15 @@ Template.doc_editing_sidebar.helpers
 
 
 Template.view_doc.events
-    'click .mark_read': (e,t)-> 
-        Meteor.call 'mark_read', @_id, =>
-            Meteor.call 'calculate_completion', @_id
-        
-    'click .mark_unread': (e,t)-> 
-        Meteor.call 'mark_unread', @_id, =>
-            Meteor.call 'calculate_completion', @_id
-    
     'click #create_parent': ->
         new_parent_id = Docs.insert {}
         Docs.update FlowRouter.getParam('doc_id'),
             $set: parent_id: new_parent_id
         FlowRouter.go "/view/#{new_parent_id}" 
         
-    'click #create_response': ->
-        new_id = Docs.insert
-            parent_id: FlowRouter.getParam('doc_id')
-        Session.set 'editing_id', new_id
-
       
-    'click #calculate_completion': ->
-        console.log 'hi', FlowRouter.getParam('doc_id')
-        Meteor.call 'calculate_completion', FlowRouter.getParam('doc_id')
+    'click #logout': -> AccountsTemplates.logout()
+      
       
     'click #admin_add': ->
         new_id = Docs.insert
@@ -227,18 +188,6 @@ Template.view_doc.events
             parent_id: FlowRouter.getParam('doc_id')
         Session.set 'editing_id', new_id
       
-    'click #new_session': ->
-        new_session_id = Docs.insert
-            parent_id: FlowRouter.getParam('doc_id')
-            type: 'session'
-        Session.set 'editing_session_id', new_session_id
-      
-    'click #add_older_sibling': ->
-        new_older_sibling_id = Docs.insert
-            number: @number+1
-            parent_id: @parent_id
-        FlowRouter.go "/view/#{new_older_sibling_id}" 
-
       
       
             
@@ -304,33 +253,6 @@ Template.field_menu.events
                 $set: "#{slug}": ''
             
             
-            
-# Template.response.onCreated ->
-#     @editing = new ReactiveVar(true)
-
-# Template.response.helpers
-#     editing_mode: -> Template.instance().editing.get()
-#     response: -> 
-#         Docs.findOne
-#             parent_id: FlowRouter.getParam('doc_id')
-#             author_id: Meteor.userId()
-            
-# Template.response.events
-#     'click .edit_this': (e,t)-> t.editing.set true
-#     'click .save_doc': (e,t)-> 
-#         t.editing.set false
-#         Session.set 'editing_id', null
-#         Meteor.call 'calculate_completion', FlowRouter.getParam('doc_id')
-
-#     'blur #text': (e,t)->
-#         text = $(e.currentTarget).closest('#text').val()
-#         Docs.update @_id,
-#             $set: body: text
-
-
-
-
-        
 Template.doc_editing_sidebar.onRendered ->
     @autorun =>
         if @subscriptionsReady()

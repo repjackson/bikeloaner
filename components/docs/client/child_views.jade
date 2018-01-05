@@ -1,154 +1,82 @@
-template(name='list_item')
-    .ui.fluid.card
-        unless editing
-            if title
-                .content
-                    .header 
-                        if completed
-                            +icon48 name='checkmark' classes='ui inline image'
-                        if icon_class
-                            +icon48 name=icon_class classes='ui inline image'
-                        if number
-                            |#{number}: 
-                        |#{title}
-                        if end_date
-                            |by #{end_date}
-                    if slug
-                        .meta Slug: #{slug}
-            // if tags
-            //     .content
-            //         +view_tags
-            .content
-                if child_count
-                    .ui.basic.label(data-tooltip="#{child_count} Responses")
-                        +icon48 name='flow-chart' classes='ui tiny inline image'
-                        |#{child_count}
-                if is_admin
-                    +published_label
-                    +edit_parent_id
-                if doc.can_vote
-                    +voting
-                +view_full_button
-                +author_info
-                |#{when}
-                if is_author
-                    if doc.can_add
-                        +session_edit_button
-        if editing
-            .content
-                each child_view_fields
-                    +Template.dynamic template=this data=doc
-            .content
-                +published
-                +session_edit_button
-
-
-
-
 template(name='card_view')
-    .ui.fluid.card
-        unless editing
-            if show_header
-                .content
-                    a.header(href="/view/#{_id}")
-                        // if completed
-                        //     +icon48 name='checkmark' classes='ui inline image'
-                        if icon_class
-                            +icon48 name=icon_class classes='ui inline image'
-                        if number
-                            |#{number}: 
-                        |#{title}
-                        if end_date
-                            |by #{end_date}
-                        if dollar_price
-                            .right.floated
-                                |$#{dollar_price}
-                    if slug
-                        .meta Slug: #{slug}
-            if youtube
-                +youtube
-            if image_id
-                .image
-                    img(src="{{c.url image_id}}")
-            if image_url
-                .ui.image
-                    img(src=image_url)
-            if content
-                .content 
-                    .large130 !{content}
-                    // .large-text !{content}
-                    if author_name
-                        h4.ui.header
-                            |- #{author_name}
-            if link
-                .content
-                    a(href=link target='_blank') #{link}
-            if time_marker
-                .content
-                    h5.ui.header Time Marker: #{time_marker}
-            if text
-                .content #{text}
-            if tags
-                .content
-                    +view_tags
-            // if intention_tags
-            //     .content
-            //         +intention_tags
-            // if location_tags
-            //     .content
-            //         +location_tags
+    .ui.card
+        if show_header
             .content
-                if child_count
-                    .ui.basic.label(data-tooltip="#{child_count} Child Documents")
-                        +icon48 name='flow-chart' classes='ui tiny inline image'
-                        |#{child_count}
-                if is_admin
-                    +type
-                    +published_label
-                    // +edit_parent_id
-                if doc.can_vote
-                    +voting
-                if doc.can_bookmark
-                    +bookmark_button
-                if doc.can_mark_resonates
-                    +resonate_button
-                if doc.can_reflect
-                    +reflect_button
-            if favorite_count
-                .content
-                    strong
-                        +icon48 name='heart' classes='ui mini inline image'
-                        | Resonates with #{favorite_count} 
-                    .ui.divided.horizontal.list
-                        each favoriter_list
-                            .item
-                                img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                                .content
-                                    .header
-                                        |#{name}
-            if upvoters
-                .content
-                    strong
-                        +icon48 name='thumbs-up' classes='ui mini inline image'
-                        | Upvoted by
-                    .ui.divided.horizontal.list
-                        each upvoter_list
-                            .item
-                                img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                                .content
-                                    .header
-                                        |#{name}
+                a.center.aligned.header(href="/view/#{_id}")
+                    if icon_class
+                        +icon48 name=icon_class classes='ui inline image'
+                    // if number
+                    //     |#{number}: 
+                    |#{title}
+                    if end_date
+                        |by #{end_date}
+                if slug
+                    .meta Slug: #{slug}
+        if youtube
+            +youtube
+        if image_id
+            .image
+                img(src="{{c.url image_id}}")
+        if image_url
+            .ui.image
+                img(src=image_url)
+        // if content
+        //     .content 
+        //         .large130 !{content}
+        //         // .large-text !{content}
+        //         if author_name
+        //             h4.ui.header
+        //                 |- #{author_name}
+        if link
             .content
-                +author_info
-                |#{when}
-                if can_edit
-                    // if doc.can_add
-                    +session_edit_button
-                +view_full_button
-        if editing
+                a(href=link target='_blank') #{link}
+        if time_marker
             .content
-                each child_view_fields
-                    +Template.dynamic template=this data=parent_doc
+                h5.ui.header Time Marker: #{time_marker}
+        if tags
             .content
-                +published
-                +session_edit_button
+                +view_tags
+        // .content
+        //     if child_count
+        //         .ui.basic.label(data-tooltip="#{child_count} Child Documents")
+        //             +icon48 name='flow-chart' classes='ui tiny inline image'
+        //             |#{child_count}
+        //     if is_admin
+        //         +type
+        //         +published_label
+        .content
+            // +author_info
+            // |#{when}
+            // if can_edit
+            //     // if doc.can_add
+            //     +session_edit_button
+            +view_full_button
+
+
+
+// template(name='grid_item')
+//     .ui.center.aligned.card(class=card_class)
+//         .content
+//             a.ui.image(href="/view/#{_id}")
+//                 if image_url
+//                     img.ui.tiny.inline.image(src=image_url)
+//                 else if completed
+//                     +icon96 name=icon_class
+//                 else
+//                     if icon_class
+//                         +dots100 name=icon_class
+//                     else
+//                         +icon96 name='circle'
+//             .ui.hidden.divider
+//             a.header(href="/view/#{_id}")
+//                 if is_admin
+//                     if number
+//                         |#{number}: 
+//                 |#{title}
+//             .ui.hidden.divider
+//             .header #{title}
+//         if is_admin
+//             +title
+//             +icon_class
+//             +published
+        

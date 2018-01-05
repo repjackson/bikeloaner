@@ -2,17 +2,40 @@ template(name='view_doc')
     with doc
         .ui.padded.stackable.grid
             unless editing
-                .centered.middle.aligned.row
-                    if parent
-                        if parent.can_access
-                            a.ui.basic.circular.button(href="/view/#{parent._id}")
-                                if parent.icon_class
-                                    +icon48 name=parent.icon_class classes='ui mini inline image'
+                .row
+                    .four.wide.column
+                        a.ui.basic.circular.icon.button(href="/")
+                            i.home.icon
+                    .eight.wide.center.aligned.column
+                        if parent
+                            if parent.can_access
+                                a.ui.basic.circular.button(href="/view/#{parent._id}")
+                                    if parent.icon_class
+                                        +icon48 name=parent.icon_class classes='ui mini inline image'
+                                    else
+                                        +icon48 name='chevron-up' classes='ui mini inline image'
+                                    | #{parent.title}
+                        else if admin_mode
+                            #create_parent.ui.basic.circular.button Create Parent
+                    .four.wide.column
+                        if currentUser
+                            a.ui.circular.basic.button(href="/account/profile/edit/#{currentUser._id}" class="{{isActivePath '/account/profile/edit/#{currentUser._id}'}}")
+                                if currentUser.profile.image_id
+                                    img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
                                 else
-                                    +icon48 name='chevron-up' classes='ui mini inline image'
-                                | #{parent.title}
-                    else if admin_mode
-                        #create_parent.ui.basic.circular.button Create Parent
+                                    i.user.icon
+                                if currentUser.name
+                                    | #{currentUser.name}
+                                else
+                                    | Profile
+                            a#logout.ui.circular.basic.button(href='#' data-content='Sign Out') 
+                                i.sign.out.icon
+                                // | Sign Out
+                        else
+                            a.ui.circular.basic.button(href='/sign-in' data-content='Sign In') 
+                                i.sign.in.icon
+                                // | Sign In
+
                     
             .centered.row
                 .twelve.wide.center.aligned.column
@@ -30,9 +53,9 @@ template(name='view_doc')
                             | Editing '#{title}'
                         else
                             | #{title}
-                        if can_edit
-                            +toggle_editing_button
-                            
+                .four.wide.center.aligned.column
+                    if can_edit
+                        +toggle_editing_button
             .row
                 unless is_editing_something
                     .four.wide.column
@@ -53,30 +76,14 @@ template(name='view_doc')
                             +username_facet
                 div(class=main_column_class)
                     if editing
-                        .ui.styled.fluid.accordion
-                            h3.active.title
-                                +icon96 name="rename" classes='ui mini inline image'
-                                | '#{title}' Fields
-                                i.dropdown.icon
-                            .active.content
-                                each components
-                                    if slug_exists
-                                        // .ui.segment(class=field_segment_class)
-                                        +Template.dynamic template=slug data=doc
-                                        if editing
-                                            +remove_field
-                                            .ui.hidden.divider
-                            h3.title
-                                +icon96 name="flow-chart" classes='ui mini inline image'
-                                | #{child_count} Child Documents
-                                i.dropdown.icon
-
-                            .content
-                                #admin_add.ui.basic.button
-                                    i.plus.icon
-                                    | Add Child Document
-                                each children
-                                    +grid_item
+                        .twelve.wide.column
+                            each components
+                                if slug_exists
+                                    // .ui.segment(class=field_segment_class)
+                                    +Template.dynamic template=slug data=doc
+                                    if editing
+                                        +remove_field
+                                        .ui.hidden.divider
                     else
                         each components
                             if slug_exists
@@ -88,8 +95,8 @@ template(name='view_doc')
                                 |#{child_count} children
                         .ui.stackable.cards
                             each children
-                                // +card_view
-                                +Template.dynamic template=doc_child_view
+                                +card_view
+                                // +Template.dynamic template=doc_child_view
                 if editing
                     .six.wide.column
                         +doc_editing_sidebar
