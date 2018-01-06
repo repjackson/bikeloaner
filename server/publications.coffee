@@ -46,14 +46,9 @@ publishComposite 'group_docs', (group_id)->
 Meteor.publish 'me', ->
     Meteor.users.find @userId,
         fields: 
-            courses: 1
-            friends: 1
             points: 1
             status: 1
-            cart: 1
-            completed_ids: 1
             bookmarked_ids: 1
-            stats: 1
     
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
@@ -199,11 +194,9 @@ Meteor.publish 'person_by_id', (id)->
 Meteor.publish 'people', (selected_people_tags)->
     match = {}
     if selected_people_tags.length > 0 then match.tags = $all: selected_people_tags
-    match._id = $ne: @userId
+    # match._id = $ne: @userId
     # match["profile.published"] = true
-    Meteor.users.find match,
-        limit: 20
-
+    Meteor.users.find match
 
 Meteor.publish 'people_tags', (selected_people_tags)->
     self = @
@@ -262,3 +255,8 @@ Meteor.publish 'user_profile', (id)->
             published: 1
             image_id: 1
             
+            
+            
+Meteor.publish 'named_doc', (name)->
+    Docs.find 
+        name: name

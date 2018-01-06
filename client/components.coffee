@@ -26,3 +26,8 @@ Template.mark_read.helpers
 
 Template.save_button.events
     'click #toggle_off_editing': -> Session.set 'editing', false
+    
+    
+Template.named_content.onCreated ->
+    console.log @name
+    @autorun => Meteor.subscribe 'named_doc', @name

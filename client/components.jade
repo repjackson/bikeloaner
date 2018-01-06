@@ -181,3 +181,8 @@ template(name='published_label')
     if is_private
         .ui.basic.label(data-tooltip='Private')
             +icon48 name='invisible'
+
+
+template(name=named_content)
+    with named_content
+        +content

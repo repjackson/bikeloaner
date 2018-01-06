@@ -39,11 +39,15 @@ template(name="tag_result")
 template(name='nav')
     .ui.large.attached.borderless.menu
         a.ui.header.item(href='/') Bike Loaner
+        a.item(href='/volunteer')
+            |Volunteer
         a.item(href='/posts') Posts
         a.item(href='/bikes') Bikes
         a.item(href='/library') Library
         a.item(href='/faq') FAQ
         a.item(href='/about') About
+        a.icon.item(href='/people')
+            i.users.icon
         .right.menu
             .item
                 +atNavButton

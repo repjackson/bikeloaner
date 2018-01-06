@@ -1,15 +1,15 @@
-template(name='users')
+template(name='people')
     .ui.container
         +user_cloud
         .ui.four.cards
             each people
-                +user
+                +person
 
 
-template(name='user')
+template(name='person')
     .ui.card
         .content
-            a(href="/account/profile/view/#{_id}")
+            a(href="/person/#{_id}")
                 .ui.image
                     img.ui.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
                 .ui.header
