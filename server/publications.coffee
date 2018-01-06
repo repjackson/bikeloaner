@@ -55,8 +55,12 @@ Meteor.publish 'me', ->
             bookmarked_ids: 1
             stats: 1
     
+Meteor.publish 'doc', (doc_id)->
+    Docs.find doc_id
 
-publishComposite 'doc', (id, ancestor_levels, descendent_levels)->
+
+
+publishComposite 'doc_family', (id, ancestor_levels, descendent_levels)->
     {
         find: ->
             Docs.find id
@@ -231,21 +235,6 @@ Meteor.publish 'people_tags', (selected_people_tags)->
         
 
 
-# publishComposite 'transactions', ->
-#     {
-#         find: ->
-#             Docs.find
-#                 type: 'transaction'
-#                 author_id: @userId            
-#         children: [
-#             { find: (transaction) ->
-#                 Docs.find transaction.parent_id
-#                 }
-#             ]    
-#     }
-
-
-
 Meteor.publish 'usernames', ->
     Meteor.users.find {},
         fields: 
@@ -253,10 +242,6 @@ Meteor.publish 'usernames', ->
             profile: 1
             points: 1
             
-Meteor.publish 'components', ->
-    Docs.find
-        # type: 'component'
-        parent_id: 'MzHSPbvCYPngq2Dcz'            
             
 Meteor.publish 'my_profile', ->
     Meteor.users.find @userId,

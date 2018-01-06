@@ -1,0 +1,25 @@
+template(name='bike')
+    with bike
+        unless editing
+            .ui.container.grid
+                .row
+                    a.ui.top.left.attached.basic.button(href="/bikes")
+                        i.arrow.left.icon
+                        |Bikes
+                .row
+                    img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+                .row
+                    .ten.wide.column
+                        each tags
+                            .ui.basic.label #{this}
+                    .five.wide.column
+                        +toggle_editing_button
+        else
+            .ui.container.basic.segment
+                .ui.center.aligned.header Edit Bike
+                .ui.form
+                    +tags
+                    +image_id
+                +toggle_editing_button
+                #delete_bike.ui.red.icon.button
+                    i.trash.icon

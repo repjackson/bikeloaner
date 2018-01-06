@@ -1,0 +1,20 @@
+template(name='bikes')
+    .ui.stackable.padded.grid
+        .four.wide.column
+            +tag_facet
+            #add_bike.ui.compact.basic.fluid.button
+                i.green.plus.icon
+                |Add Bike
+        .twelve.wide.column
+            .ui.cards
+                each bikes
+                    +bike_card
+
+
+template(name='bike_card')
+    a.ui.card(href="/bike/#{_id}")
+        .image
+            img(src="{{c.url image_id  height=300 crop='fill' gravity='face' }}")
+        .content
+            each tags
+                .ui.compact.button.bike_tag(class=tag_class) #{this}

@@ -1,28 +1,3 @@
-template(name='resonate_button')
-    .resonate_button.ui.circular.icon.button(class=resonate_button_class data-tooltip='This Resonates with Me')
-        // i.big.red.heartbeat.icon
-        // <img src="https://png.icons8.com/heart-with-pulse/dusk/64" title="Heart with Pulse" width="64" height="64">        
-        img.ui.mini.inline.image(src="https://png.icons8.com/heart-with-pulse/dusk/64" width="64" height="64")
-        
-
-template(name='resonates_list')
-    if resonates_with_people.count
-        .ui.segment
-            .ui.dividing.header
-                |This Resonates With... (#{resonates_with_people.count})
-            .ui.divided.list
-                each resonates_with_people
-                    .item
-                        img.ui.avatar.image(src="{{c.url profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                        .content
-                            .header
-                                |#{name}
-                            .description
-                                +tiny_color_dots
-                                // each five_tags
-                                //     .ui.basic.label #{this}
-
-
 template(name='mark_read')
     // if read
     //     .mark_unread.ui.basic.button 
@@ -120,54 +95,6 @@ template(name='service_buttons')
     +call_watson
                         
                         
-template(name='parent_doc_segment')
-    if parent_id
-        .ui.styled.fluid.accordion
-            .title
-                +icon48 name='response' classes='avatar'
-                |In response to...
-                i.dropdown.icon
-            .content
-                with parent
-                    |!{content}
-                    +view_full_button
-                    // .ui.horizontal.divided.list
-                    //     .item
-                    //         img.ui.avatar.image(src="{{c.url author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                    //         |by #{author.name}
-                    //     .item
-                    //         |Type:
-                    //         .ui.basic.label #{type}
-                    // .ui.divider
-                    // img.ui.avatar.image(src="https://png.icons8.com/tags/color/48" width="48" height="48")
-                    // each tags
-                    //     .ui.basic.small.label #{this}
-                    
-
-
-template(name='view_published_toggle')
-    if viewing_mine
-        #view_all_entries.ui.basic.fluid.button
-            img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
-            |Viewing Mine (Public and Private)
-    if viewing_all
-        #view_my_entries.ui.basic.fluid.button 
-            +icon48 name='people' classes='avatar'
-            |Viewing All Public
-
-template(name='view_read_toggle')
-    if viewing_unread
-        #view_all.ui.basic.fluid.button
-            +icon48 name='read-message' classes='avatar'
-            |Viewiing Unread
-    if viewing_all
-        #view_unread.ui.basic.fluid.button 
-            +icon48 name='message' classes='avatar'
-            |Viewing Read and Unread
-
-template(name='stripe_cc_form')
-    #card_element
-    
 template(name='icon48')
     img.ui.image(src="https://png.icons8.com/#{name}/color/48" width="48" height="48" class=classes title=tooltip)
 template(name='icon24')
@@ -239,31 +166,11 @@ template(name='recipient_info')
             +staus_indicator
 
 
-
-
-template(name='doc_stats_module')
-    .ui.dividing.header 
-        +icon48 name='combo-chart'
-        | Stats
-    if child_count
-        .ui.header Response Count: #{child_count}
-
-
 template(name='button_link')
     a.ui.basic.circular.button(href=url)
         +icon48 name=icon classes='ui mini spaced image'
         | #{label}
         
-template(name='dividing_header')
-    .ui.dividing.header 
-        +icon48 name=icon classes='ui mini inline image'
-        | #{label}
-        
-template(name='page_header')
-    h1.ui.center.aligned.header
-        +icon96 name=icon
-        | #{label}
-
 template(name='published_label')
     if is_published
         .ui.basic.label(data-tooltip='Published')
