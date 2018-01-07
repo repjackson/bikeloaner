@@ -1,0 +1,71 @@
+template(name='posts')
+    .centered.row
+        h1.ui.center.aligned.header Posts
+    .row
+        .four.wide.column
+            +tag_facet
+            if isInRole 'admin'
+                .ui.hidden.divider
+                #add_post.ui.compact.basic.fluid.button
+                    i.green.plus.icon
+                    |Add Post
+        .twelve.wide.column
+            .ui.relaxed.divided.items
+                each posts
+                    +post_item
+
+
+
+template(name='post_item')
+    .ui.fluid.card
+        .ui.centered.image
+            a(href="/post/#{_id}")
+                img(src="{{c.url image_id  height=300 crop='fill' gravity='face' }}")
+        .content
+            .ui.header
+                a(href="/post/#{_id}") #{title}
+            if publish_date
+                .meta
+                    | Published #{publish_when}
+        .content
+            |!{content}
+        .content
+            each tags
+                .ui.compact.button.doc_tag(class=tag_class) #{this}
+            a.ui.right.floated.icon.basic.button(href="/post/#{_id}")
+                i.right.arrow.icon
+                
+                
+                
+                
+template(name='post')
+    with post
+        unless editing
+            .centered.row
+                h1.ui.center.aligned.header #{title}
+            .ten.wide.column
+                if image_id
+                    img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+                if publish_date
+                    h4.ui.header Published #{publish_when}
+                .ui.basic.segment
+                    +content
+                if tags
+                    each tags
+                        .ui.basic.label #{this}
+            .five.wide.column
+                +user_card
+                +edit_button
+        else
+            .centered.row
+                .ui.header Edit Post
+            .ui.form
+                +title
+                +content
+                +publish_date
+                +tags
+            if tags
+                +edit_button
+            #delete.ui.red.icon.button
+                i.trash.icon
+                

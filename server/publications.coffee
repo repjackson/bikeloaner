@@ -258,5 +258,7 @@ Meteor.publish 'user_profile', (id)->
             
             
 Meteor.publish 'named_doc', (name)->
-    Docs.find 
-        name: name
+    console.log name
+    if name
+        Docs.find 
+            name: name

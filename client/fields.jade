@@ -96,27 +96,26 @@ template(name='content')
     
 template(name='image_id')
     if editing
-        .ui.segment
-            if image_id
-                .ui.header
-                     +icon48 name='image-file' classes='ui mini spaced image'
-                     |Uploaded Image
-                .ui.large.centered.image
-                    img(src="{{c.url image_id width=500 crop='fit'}}")
-                    a#remove_photo.ui.top.right.attached.link.red.basic.label
-                        +icon48 name='delete' classes='ui tiny spaced image'
-                    if isInRole 'dev'
-                        .ui.bottom.right.attached.blue.label Image Id: #{image_id}
-            else
-                .ui.labeled.fluid.input
-                    .ui.basic.label
-                        +icon48 name='add-image' classes='ui tiny spaced image'
-                        |Upload Image
-                    input(type='file' name='upload_picture' accept='image/*')
-                // if isInRole 'dev'
-                //     .ui.header or Choose Cloudinary Image Id
-                //     .ui.input
-                //         input#input_image_id(type='text')
+        if image_id
+            .ui.header
+                 +icon48 name='image-file' classes='ui mini spaced image'
+                 |Uploaded Image
+            .ui.large.centered.image
+                img(src="{{c.url image_id width=500 crop='fit'}}")
+                a#remove_photo.ui.top.right.attached.link.red.basic.label
+                    +icon48 name='delete' classes='ui tiny spaced image'
+                if isInRole 'dev'
+                    .ui.bottom.right.attached.blue.label Image Id: #{image_id}
+        else
+            .ui.labeled.fluid.input
+                .ui.basic.label
+                    +icon48 name='add-image' classes='ui tiny spaced image'
+                    |Upload Image
+                input(type='file' name='upload_picture' accept='image/*')
+            // if isInRole 'dev'
+            //     .ui.header or Choose Cloudinary Image Id
+            //     .ui.input
+            //         input#input_image_id(type='text')
     else
         img.ui.centered.image(src="{{c.url image_id width=500 crop='fit'}}")
         
@@ -184,6 +183,11 @@ template(name='edit_author')
         +inputAutocomplete settings=author_edit_settings id="author_select" class="" autocomplete="off" placeholder='Lookup...'
                     
                     
+template(name='date')
+    .ui.labeled.input
+        .ui.basic.label Date
+        input#date(type='date' value=date)
+        
 template(name='start_date')
     .ui.labeled.input
         .ui.basic.label Start Date
@@ -206,3 +210,21 @@ template(name='end_date')
             input#end_date(type='date' value=end_date)
     else
         .ui.header End Date #{end_date}
+        
+template(name='start_datetime')
+    if editing
+        .ui.labeled.input
+            .ui.basic.label Start Date/Time
+            input#start_datetime(type='datetime-local' value=start_datetime)
+    else
+        .ui.header Start Date/Time #{start_datetime}
+        
+template(name='end_datetime')
+    if editing
+        .ui.labeled.input
+            .ui.basic.label End Date/Time
+            input#end_datetime(type='datetime-local' value=end_datetime)
+    else
+        .ui.header End Date/Time #{end_datetime}
+        
+        

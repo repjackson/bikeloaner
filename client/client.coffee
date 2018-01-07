@@ -3,6 +3,32 @@ $.cloudinary.config
     cloud_name:"facet"
 
     
+FlowRouter.route '/', action: ->
+    BlazeLayout.render 'layout',
+        main: 'home'
+
+FlowRouter.route '/contact', action: (params) ->
+    BlazeLayout.render 'layout',
+        main: 'contact'
+
+FlowRouter.route '/about', action: (params) ->
+    BlazeLayout.render 'layout',
+        main: 'about'
+
+    
+FlowRouter.route '/faq', action: (params) ->
+    BlazeLayout.render 'layout',
+        main: 'faq'
+
+    
+FlowRouter.route '/donate', action: (params) ->
+    BlazeLayout.render 'layout',
+        main: 'donate'
+
+    
+    
+    
+    
 Session.setDefault 'editing', false
     
 Template.registerHelper 'is_author', () ->  Meteor.userId() is @author_id

@@ -46,8 +46,22 @@ template(name='nav')
         a.item(href='/library') Library
         a.item(href='/faq') FAQ
         a.item(href='/about') About
+        a.item(href='/donate') Donate
         a.icon.item(href='/people')
             i.users.icon
         .right.menu
             .item
                 +atNavButton
+                
+                
+template(name='faq')
+    .row
+        .sixteen.wide.column
+            +named_content name='faq'
+            
+template(name='donate')
+    .row
+        .sixteen.wide.column
+            +named_content name='donate'
+            
+            

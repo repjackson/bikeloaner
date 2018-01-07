@@ -322,17 +322,30 @@ Template.start_date.events
         Docs.update @_id,
             $set: start_date: start_date
     
+Template.date.events
+    'blur #date': ->
+        date = $('#date').val()
+        Docs.update @_id,
+            $set: date: date
+    
 Template.publish_date.events
     'blur #publish_date': ->
         publish_date = $('#publish_date').val()
         Docs.update @_id,
             $set: publish_date: publish_date
     
-Template.end_date.events
-    'blur #end_date': ->
-        end_date = $('#end_date').val()
+Template.start_datetime.events
+    'blur #start_datetime': ->
+        start_datetime = $('#start_datetime').val()
         Docs.update @_id,
-            $set: end_date: end_date
+            $set: start_datetime: start_datetime
+
+
+Template.end_datetime.events
+    'blur #end_datetime': ->
+        end_datetime = $('#end_datetime').val()
+        Docs.update @_id,
+            $set: end_datetime: end_datetime
 
 Template.time_marker.events
     'blur #time_marker': ->

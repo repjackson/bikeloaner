@@ -21,30 +21,6 @@ Template.voting.events
         else FlowRouter.go '/sign-in'
 
 
-Template.big_both_voter.helpers
-    vote_up_button_class: ->
-        if not Meteor.userId() then 'disabled'
-        else if @upvoters and Meteor.userId() in @upvoters then 'green'
-        else 'outline'
-
-    vote_down_button_class: ->
-        if not Meteor.userId() then 'disabled'
-        else if @downvoters and Meteor.userId() in @downvoters then 'red'
-        else 'outline'
-
-Template.big_both_voter.events
-    'click .vote_up': (e,t)-> 
-        if Meteor.userId() 
-            Meteor.call 'vote_up', @_id
-            # $(e.currentTarget).closest('.vote_up').transition('pulse')
-        else FlowRouter.go '/sign-in'
-
-    'click .vote_down': (e,t)-> 
-        if Meteor.userId() 
-            Meteor.call 'vote_down', @_id
-            # $(e.currentTarget).closest('.vote_down').transition('pulse')
-        else FlowRouter.go '/sign-in'
-
 
 
 
@@ -65,102 +41,6 @@ Template.published.events
         
         
         
-Template.edit_button.onCreated ->
-    @editing = new ReactiveVar(false)
-Template.edit_button.helpers
-    editing: -> Template.instance().editing.get()
-Template.edit_icon.onCreated ->
-    @editing = new ReactiveVar(false)
-Template.edit_icon.helpers
-    editing: -> Template.instance().editing.get()
-Template.edit_link.onCreated ->
-    @editing = new ReactiveVar(false)
-Template.edit_link.helpers
-    editing: -> Template.instance().editing.get()
-
-Template.edit_button.events
-    'click .edit_this': (e,t)-> 
-        console.log @
-        console.log t.editing
-        t.editing.set true
-    'click .save_doc': (e,t)-> 
-        console.log t.editing
-        t.editing.set false
-
-
-
-Template.session_edit_button.events
-    'click .edit_this': -> Session.set 'editing_id', @_id
-    'click .save_doc': -> 
-        if @tags
-            selected_theme_tags.clear()
-            for tag in @tags
-                selected_theme_tags.push tag
-        Meteor.call 'calculate_completion', FlowRouter.getParam('doc_id')
-        Session.set 'editing_id', null
-
-Template.session_edit_button.helpers
-    button_classes: -> Template.currentData().classes
-
-Template.session_edit_icon.events
-    'click .edit_this': -> Session.set 'editing_id', @_id
-    'click .save_doc': -> 
-        Meteor.call 'calculate_completion', FlowRouter.getParam('doc_id')
-        Session.set 'editing_id', null
-
-Template.session_edit_icon.helpers
-    button_classes: -> Template.currentData().classes
-
-
-Template.edit_icon.events
-    'click .edit_this': (e,t)-> 
-        console.log t.editing
-        t.editing.set true
-    'click .save_doc': (e,t)-> 
-        console.log t.editing
-        t.editing.set false
-Template.edit_link.events
-    'click .edit_this': (e,t)-> 
-        console.log t.editing
-        t.editing.set true
-    'click .save_doc': (e,t)-> 
-        console.log t.editing
-        t.editing.set false
-
-
-Template.delete_button.onCreated ->
-    @confirming = new ReactiveVar(false)
-            
-Template.delete_button.helpers
-    confirming: -> Template.instance().confirming.get()
-
-Template.delete_button.events
-    'click .delete': (e,t)-> t.confirming.set true
-
-    'click .cancel': (e,t)-> t.confirming.set false
-    'click .confirm': (e,t)-> 
-        if Session.get 'editing_id' then Session.set 'editing_id', null
-        Docs.remove @_id
-            
-Template.delete_link.onCreated ->
-    @confirming = new ReactiveVar(false)
-            
-            
-Template.delete_link.helpers
-    confirming: -> Template.instance().confirming.get()
-Template.delete_link.events
-    'click .delete': (e,t)-> 
-        # $(e.currentTarget).closest('.comment').transition('pulse')
-        t.confirming.set true
-
-    'click .cancel': (e,t)-> t.confirming.set false
-    'click .confirm': (e,t)-> 
-        $(e.currentTarget).closest('.comment').transition('fade right')
-        Meteor.setTimeout =>
-            Docs.remove(@_id)
-        , 1000
-
-
 Template.favorite_button.helpers
     favorite_count: -> @favorite_count
     
@@ -175,8 +55,6 @@ Template.favorite_button.events
             $(e.currentTarget).closest('.favorite_item').transition('pulse')
 
         else FlowRouter.go '/sign-in'
-
-
 
 
 
@@ -202,6 +80,6 @@ Template.bookmark_button.events
 
 
 
-Template.toggle_editing_button.events
-    'click #toggle_editing_on': -> Session.set 'editing', true
-    'click #toggle_editing_off': -> Session.set 'editing', false
+Template.edit_button.events
+    'click #edit': -> Session.set 'editing', true
+    'click #save': -> Session.set 'editing', false

@@ -67,18 +67,6 @@ Docs.after.remove (userId, doc)->
     if doc.parent_id
         Meteor.call 'calculate_child_count', doc.parent_id
 
-FlowRouter.route '/', action: ->
-    BlazeLayout.render 'layout',
-        main: 'home'
-
-FlowRouter.route '/contact', action: (params) ->
-    BlazeLayout.render 'layout',
-        main: 'contact'
-
-FlowRouter.route '/about', action: (params) ->
-    BlazeLayout.render 'layout',
-        main: 'about'
-
 
 Docs.helpers
     author: -> Meteor.users.findOne @author_id

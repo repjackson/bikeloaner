@@ -103,25 +103,7 @@ template(name='icon96')
     // i.icon(src="https://png.icons8.com/#{name}/color/96" width="96" height="96" class=classes title=tooltip)
     img(src="https://png.icons8.com/#{name}/color/96" width="96" height="96" class=classes title=tooltip)
 
-template(name='ultraviolet_icon40')
-    img(src="https://png.icons8.com/#{name}/ultraviolet/40" class=classes title=tooltip width="40" height="40")
     
-template(name='ultraviolet_icon80')
-    img(src="https://png.icons8.com/#{name}/ultraviolet/80" class=classes title=tooltip width="80" height="80")
-    
-template(name='dots100')
-    img(src="https://png.icons8.com/hide/#{name}/100/000000" class=classes title=tooltip)
-    
-template(name='dots50')
-    img(src="https://png.icons8.com/hide/#{name}/50/000000" class=classes title=tooltip)
-    
-    
-template(name='dusk_icon64')    
-    img(src="https://png.icons8.com/#{name}/dusk/64" class=classes title=tooltip width="64" height="64")    
-    
-template(name='ios96')
-    // i.icon(src="https://png.icons8.com/#{name}/p1em/96" class=classes width="96" height="96")
-    img(src="https://png.icons8.com/#{name}/p1em/96" class=classes width="96" height="96")
 
 template(name='published_status')
     if published
@@ -134,13 +116,6 @@ template(name='published_status')
             | Not Published
             
             
-template(name='save_button')
-    if tags
-        #toggle_off_editing.ui.fluid.basic.circular.button(data-position='bottom center' data-tooltip='Save')
-            +icon48 name='checkmark' classes='ui mini inline image'
-    else
-        .ui.fluid.basic.disabled.circular.button Add Tags to Save
-
 
 template(name='author_info')
     if is_anonymous
@@ -166,10 +141,6 @@ template(name='recipient_info')
             +staus_indicator
 
 
-template(name='button_link')
-    a.ui.basic.circular.button(href=url)
-        +icon48 name=icon classes='ui mini spaced image'
-        | #{label}
         
 template(name='published_label')
     if is_published
@@ -183,6 +154,11 @@ template(name='published_label')
             +icon48 name='invisible'
 
 
-template(name=named_content)
-    with named_content
-        +content
+template(name='named_content')
+    if named_doc
+        with named_doc
+            +content
+            +edit_button
+    else
+        #create_doc.ui.basic.button Create Doc
+        
