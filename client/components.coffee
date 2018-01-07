@@ -30,7 +30,6 @@ Template.named_content.onCreated ->
     
 Template.named_content.events
     'click #create_doc': ->
-        console.log @name
         Docs.insert
             name: @name
             

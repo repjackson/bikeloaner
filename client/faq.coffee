@@ -1,53 +1,42 @@
-Template.slider.onRendered ->
-    Meteor.setTimeout (->
-        $('#layerslider').layerSlider
-            autoStart: true
-            # firstLayer: 1
-            # skin: 'borderlesslight'
-            # skinsPath: '/static/layerslider/skins/'
-        ), 500
-
-
-
-FlowRouter.route '/slides', action: ->
+FlowRouter.route '/faq', action: ->
     BlazeLayout.render 'layout', 
-        main: 'slides'
+        main: 'faq'
 
-Template.slides.onCreated ->
-    @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'slide')
+Template.faq.onCreated ->
+    @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'question')
 
-Template.slider.onCreated ->
-    @autorun -> Meteor.subscribe('slides')
 
-Template.slider.helpers
-    slides: ->
-        Docs.find
-            type: 'slide'
-
-Template.slides.helpers
-    slides: -> Docs.find {type: 'slide'}
+Template.faq.helpers
+    questions: -> Docs.find {type: 'question'}
      
      
-Template.slides.events
-    'click #add_slide': ->
+Template.faq.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.accordion').accordion()
+            , 1000
+     
+            
+Template.faq.events
+    'click #add_question': ->
         id = Docs.insert
-            type: 'slide'
-        FlowRouter.go "/slide/#{id}"
+            type: 'question'
         Session.set 'editing_id', id
         
         
 
-Template.slide.onCreated ->
+Template.question_item.onCreated ->
     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
 
-Template.slide.helpers
-    slide: -> Docs.findOne FlowRouter.getParam('doc_id')
+Template.question_item.helpers
+    doc: -> Docs.findOne FlowRouter.getParam('doc_id')
     
     
-Template.slide.events
+Template.question_item.events
     'click #delete': ->
         swal {
-            title: 'Delete slide?'
+            title: 'Delete Question?'
             # text: 'Confirm delete?'
             type: 'error'
             animation: false
@@ -59,22 +48,22 @@ Template.slide.events
         }, ->
             doc = Docs.findOne FlowRouter.getParam('doc_id')
             Docs.remove doc._id, ->
-                FlowRouter.go "/slides"        
+                FlowRouter.go "/faq"        
                 
                 
                 
-FlowRouter.route '/slide/:doc_id', action: (params) ->
+FlowRouter.route '/question/:doc_id', action: (params) ->
     BlazeLayout.render 'layout',
-        main: 'slide'
+        main: 'question'
 
-Template.slide.onCreated ->
+Template.question.onCreated ->
     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
 
-Template.slide.helpers
-    slide: -> Docs.findOne FlowRouter.getParam('doc_id')
+Template.question.helpers
+    question: -> Docs.findOne FlowRouter.getParam('doc_id')
     
     
-Template.slide.events
+Template.question.events
     'click #delete': ->
         swal {
             title: 'Delete?'
@@ -89,4 +78,4 @@ Template.slide.events
         }, ->
             bike = Docs.findOne FlowRouter.getParam('bikes_id')
             Docs.remove bike._id, ->
-                FlowRouter.go "/slides"        
+                FlowRouter.go "/faq"        

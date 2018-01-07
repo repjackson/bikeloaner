@@ -39,8 +39,7 @@ template(name="tag_result")
 template(name='nav')
     .ui.large.attached.borderless.menu
         a.ui.header.item(href='/') Bike Loaner
-        a.item(href='/volunteer')
-            |Volunteer
+        a.item(href='/volunteer') Volunteer
         a.item(href='/posts') Posts
         a.item(href='/bikes') Bikes
         a.item(href='/library') Library
@@ -54,14 +53,14 @@ template(name='nav')
                 +atNavButton
                 
                 
-template(name='faq')
-    .row
-        .sixteen.wide.column
-            +named_content name='faq'
-            
 template(name='donate')
     .row
         .sixteen.wide.column
             +named_content name='donate'
+            
+template(name='about')
+    .row
+        .sixteen.wide.column
+            +named_content name='about'
             
             

@@ -119,6 +119,16 @@ template(name='image_id')
     else
         img.ui.centered.image(src="{{c.url image_id width=500 crop='fit'}}")
         
+template(name='link')
+    if editing
+        .ui.labeled.icon.input
+            .ui.basic.label Link (include http://)
+            // i.linkify.icon
+            input#link(type='text' value=link)
+    else
+        a(href=link) #{link}
+
+
 
 template(name='image_url')
     if editing

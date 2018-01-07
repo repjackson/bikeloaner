@@ -258,7 +258,11 @@ Meteor.publish 'user_profile', (id)->
             
             
 Meteor.publish 'named_doc', (name)->
-    console.log name
     if name
         Docs.find 
             name: name
+            
+            
+Meteor.publish 'slides', ()->
+    Docs.find
+        type:'slide'

@@ -10,7 +10,7 @@ Meteor.publish 'facet', (
 
         if selected_theme_tags.length > 0 then match.tags = $all: selected_theme_tags
         
-        console.log match
+        # console.log match
         
         theme_tag_cloud = Docs.aggregate [
             { $match: match }

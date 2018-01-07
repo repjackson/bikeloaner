@@ -21,8 +21,6 @@ FlowRouter.route '/bike/:doc_id', action: (params) ->
     BlazeLayout.render 'layout',
         main: 'bike'
 
-
-
 Template.bike.onCreated ->
     @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
 
