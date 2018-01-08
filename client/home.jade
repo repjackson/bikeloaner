@@ -1,6 +1,31 @@
 template(name='home')
-    a.ui.button(href="/slides") Slides
-    +slider
+    .row
+        +slider
+    .row
+        a.ui.button(href="/slides") Slides
+    .row
+        +homepage_stats
+    
+    
+template(name='homepage_stats')
+    .ui.two.column.centered.grid
+        .column
+            .ui.statistic
+                .value 21,000
+                .label Visitors
+            .ui.statistic
+                .value 17,000
+                .label Hours
+        .column
+            .ui.statistic
+                .value 21,000
+                .label Visitors
+            .ui.statistic
+                .value 21,000
+                .label Visitors
+        
+
+
 
 template(name='slider')
     #layerslider(style='width:909px; height: 600px;')
@@ -11,9 +36,9 @@ template(name='slider')
                 img.ls-bg(src="{{c.url image_id }}", alt='Slide background' )
                 .ls-l(style="top: 20%; height: 170px; width: 170px; left: 20%;" )
                     // a(href='/join')
-                    h1 title
+                    h1: title
                 .ls-l(style="top: 50%; height: 170px; width: 170px; left: 20%;" )
-                    h2.slider-subheader subtitle
+                    h2.slider-subheader: subtitle
                     // h2.slider-subheader
                     //     | My goal is to spread light to others to help them navigate their own journey through life.
                     
@@ -38,11 +63,15 @@ template(name='slides')
                     
 template(name='slide_card')
     .ui.card
+        .image
+            img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+            if image_url
+                img.ui.centered.image(src=image_url)
         .content
-            .image
-                img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
-                if image_url
-                    img.ui.centered.image(src=image_url)
+            .ui.header 
+                |Title: #{title}
+            .ui.subheader 
+                |Subtitle: #{subtitle}
             a.ui.icon.button(href="/slide/#{_id}")
                 i.right.arrow.icon
 

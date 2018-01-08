@@ -1,43 +1,41 @@
-template(name='library')
+template(name='events')
     .centered.row
-        h1.ui.header Library
+        h1.ui.header Events
     .row
         .four.wide.column
             +tag_facet
             .ui.hidden.divider
-            #add_doc.ui.compact.basic.fluid.button
+            #add_event.ui.compact.basic.fluid.button
                 i.green.plus.icon
-                |Add Doc
+                |Add Event
         .twelve.wide.column
             .ui.cards
-                each docs
-                    +doc_card
+                each events
+                    +event_card
 
 
-template(name='doc_card')
-    a.ui.card(href="/doc/#{_id}")
+template(name='event_card')
+    a.ui.card(href="/event/#{_id}")
         .image
             img(src="{{c.url image_id  height=300 crop='fill' gravity='face' }}")
             if image_url
                 img.ui.centered.image(src=image_url)
-            if youtube
-                +youtube
         .content
             each tags
-                .ui.compact.button.doc_tag(class=tag_class) #{this}
+                .ui.compact.button.event_tag(class=tag_class) #{this}
                 
                 
                 
-template(name='doc')
-    with doc
+template(name='event')
+    with event
         unless editing
             .row
                 .three.wide.column
-                    a.ui.top.left.attached.basic.button(href="/library")
+                    a.ui.top.left.attached.basic.button(href="/events")
                         i.arrow.left.icon
-                        |Library
+                        |events
                 .twelve.wide.center.aligned.column
-                    h1.ui.header View Document
+                    h1.ui.header View event
             .row
                 .ten.wide.column
                     img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
@@ -45,22 +43,22 @@ template(name='doc')
                         img.ui.centered.image(src=image_url)
                     each tags
                         .ui.basic.label #{this}
-                    +youtube
-                    +content
                 .five.wide.column
                     +edit_button
         else
             .centered.row
-                h1.ui.center.aligned.header Edit Document
+                h1.ui.center.aligned.header Edit event
             .row
                 .twelve.wide.column
                     .ui.form
                         +tags
                         +image_id
                         +image_url
-                        +youtube
                         +content
+                        +start_datetime
+                        div
+                            +end_datetime
                 .four.wide.column
                     +edit_button
-                    #delete_doc.ui.red.icon.button
+                    #delete_event.ui.red.icon.button
                         i.trash.icon

@@ -252,7 +252,6 @@ Meteor.publish 'user_profile', (id)->
             tags: 1
             profile: 1
             username: 1
-            published: 1
             image_id: 1
             
             

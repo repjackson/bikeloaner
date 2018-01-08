@@ -1,9 +1,26 @@
-.ui.basic.segment.container
-    h1.ui.center.aligned.header Edit Profile 
+template(name='view_profile')
+    with person
+        .ui.container.grid
+            .five.wide.column
+                img.ui.centered.image(src="{{c.url profile.image_id width=400 height=400 gravity='face' crop='fill'}}")
+            .ten.wide.column
+                h2.ui.header
+                    |#{profile.first_name} #{profile.last_name}
+                if tags
+                    i.large.tags.icon
+                    each tags
+                        .ui.basic.label #{this}
+                if profile.bio
+                    .ui.header Bio
+                    |#{profile.bio}
+                a.ui.button(href="/profile/#{_id}/edit") Edit Profile                
+                
+template(name='edit_profile')
     with user
-        .ui.large.form
-            .ui.grid
-                .five.wide.column    
+        h1.ui.center.aligned.header Edit Profile
+        .ui.container.grid
+            .five.wide.column 
+                .ui.form
                     .field
                         // .field
                         //     label Current image_id: #{image_id}
@@ -17,7 +34,8 @@
                         else
                             label Upload Image
                             input(type='file' name='upload_picture' accept='image/*')
-                .ten.wide.column    
+            .ten.wide.column  
+                .ui.form
                     .field
                         label First Name 
                         .ui.input
@@ -39,27 +57,6 @@
                         .ui.left.icon.input
                             i.add.icon
                             input#add_tag(type='text' placeholder='Press enter after each one' maxlength='50')
-
-                    // .ui.segment
-                    //     .ui.header 
-                    //         i.hide.icon
-                    //         |Private
-                    //     .field
-                    //         label Phone 
-                    //         .ui.input
-                    //             input#phone(type='text' value=profile.phone)
-                    // .ui.segment
-                    //     +atForm
-        .ui.basic.segment.container
-            .ui.horizontal.divider.header Settings
-            // .ui.form
-            //     .field
-            //         label Subscribe to Newsletter
-                    
-            .ui.slider.checkbox
-                input#newsletter(type='checkbox' checked=user.profile.subscribe)
-                label(for='newsletter') Subscribe to Newsletter
-        .field
                 .ui.center.aligned.basic.segment
-                    #save_profile.ui.center.aligned.huge.teal.button
-                        |Save
+                    a.ui.button(href="/profile/#{_id}") Save
+

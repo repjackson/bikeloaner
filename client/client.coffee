@@ -26,7 +26,8 @@ FlowRouter.route '/donate', action: (params) ->
         main: 'donate'
 
     
-    
+Template.nav.events
+    'click #logout': -> AccountsTemplates.logout()
     
     
 Session.setDefault 'editing', false

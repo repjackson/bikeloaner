@@ -5,7 +5,7 @@ Template.slider.onRendered ->
             # firstLayer: 1
             # skin: 'borderlesslight'
             # skinsPath: '/static/layerslider/skins/'
-        ), 500
+        ), 1000
 
 
 
@@ -75,7 +75,7 @@ Template.slide.helpers
     
     
 Template.slide.events
-    'click #delete': ->
+    'click #delete_slide': ->
         swal {
             title: 'Delete?'
             # text: 'Confirm delete?'
@@ -87,6 +87,6 @@ Template.slide.events
             confirmButtonText: 'Delete'
             confirmButtonColor: '#da5347'
         }, ->
-            bike = Docs.findOne FlowRouter.getParam('bikes_id')
-            Docs.remove bike._id, ->
+            slide = Docs.findOne FlowRouter.getParam('doc_id')
+            Docs.remove slide._id, ->
                 FlowRouter.go "/slides"        
