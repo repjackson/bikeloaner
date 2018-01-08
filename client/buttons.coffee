@@ -77,9 +77,23 @@ Template.bookmark_button.events
         else FlowRouter.go '/sign-in'
 
 
-
-
-
 Template.edit_button.events
     'click #edit': -> Session.set 'editing', true
     'click #save': -> Session.set 'editing', false
+    
+    
+Template.join_button.helpers
+    joined: ->
+        if Meteor.userId() in @participants then true else false
+
+Template.join_button.events
+    'click #join': ->
+        Docs.update @_id,
+            $addToSet: participants: Meteor.userId()
+            
+    'click #leave': ->
+        Docs.update @_id,
+            $pull: participants: Meteor.userId()
+            
+        
+        

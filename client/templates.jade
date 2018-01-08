@@ -66,13 +66,11 @@ template(name='nav')
                 
                 
 template(name='donate')
-    .row
-        .sixteen.wide.column
-            +named_content name='donate'
+    .ui.container
+        +named_content name='donate'
             
 template(name='about')
-    .row
-        .sixteen.wide.column
-            +named_content name='about'
+    .ui.text.container
+        +named_content name='about'
             
             

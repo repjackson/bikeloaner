@@ -4,6 +4,14 @@ FlowRouter.route '/volunteer', action: (params) ->
 
 
 
+Template.volunteer.onRendered ->
+    @autorun =>
+        if @subscriptionsReady()
+            Meteor.setTimeout ->
+                $('.ui.accordion').accordion()
+            , 1000
+
+
 Template.volunteer.onCreated -> 
     @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'shift')
 
@@ -28,17 +36,6 @@ Template.volunteer.events
             volunteer_id: []
         FlowRouter.go "/shift/#{id}"
 
-    'click #join_shift': -> 
-        Docs.update @_id,
-            $addToSet: 
-                volunteer_ids: Meteor.userId()
-        
-    'click #leave_shift': -> 
-        Docs.update @_id,
-            $pull: 
-                volunteer_ids: Meteor.userId()
-
-    
                     
 FlowRouter.route '/shift/:doc_id', action: (params) ->
     BlazeLayout.render 'layout',
@@ -52,4 +49,23 @@ Template.shift.onCreated ->
 
 Template.shift.helpers
     shift: -> Docs.findOne FlowRouter.getParam('doc_id')
-    
+    first_shift_button_class: -> if @shift is 'first' then 'blue' else 'basic'
+    second_shift_button_class: -> if @shift is 'second' then 'blue' else 'basic'
+
+Template.volunteer_list.helpers
+    volunteers: ->
+        Meteor.users.find( _id: $in: @participants).fetch()
+
+
+
+Template.shift.events
+    'click #make_first_shift': -> 
+        Docs.update FlowRouter.getParam('doc_id'),
+            $set: shift: 'first'
+            
+    'click #make_second_shift': -> 
+        Docs.update FlowRouter.getParam('doc_id'),
+            $set: shift: 'second'
+            
+            
+            

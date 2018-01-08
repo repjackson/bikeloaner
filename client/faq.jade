@@ -1,12 +1,13 @@
 template(name='faq')
-    .centered.row
-        h1.ui.header FAQ
-            i#add_question.link.green.plus.icon
-    .centered.row
-        .twelve.wide.column
-            .ui.styled.accordion
-                each questions
-                    +question_item
+    .ui.stackable.padded.grid
+        .centered.row
+            h1.ui.header FAQ
+                i#add_question.link.green.plus.icon
+        .centered.row
+            .fourteen.wide.column
+                .ui.styled.accordion
+                    each questions
+                        +question_item
                 
                 
 template(name='question_item')

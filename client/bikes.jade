@@ -28,34 +28,35 @@ template(name='bike_card')
                 
                 
 template(name='bike')
-    with bike
-        unless editing
-            .row
-                .three.wide.column
-                    a.ui.top.left.attached.basic.button(href="/bikes")
-                        i.arrow.left.icon
-                        |Bikes
-                .twelve.wide.center.aligned.column
-                    h1.ui.header View Bike
-            .row
-                .ten.wide.column
-                    img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
-                    if image_url
-                        img.ui.centered.image(src=image_url)
-                    each tags
-                        .ui.basic.label #{this}
-                .five.wide.column
-                    +edit_button
-        else
-            .centered.row
-                h1.ui.center.aligned.header Edit Bike
-            .row
-                .twelve.wide.column
-                    .ui.form
-                        +tags
-                        +image_id
-                        +image_url
-                .four.wide.column
-                    +edit_button
-                    #delete_bike.ui.red.icon.button
-                        i.trash.icon
+    .ui.stackable.padded.grid
+        with bike
+            unless editing
+                .row
+                    .three.wide.column
+                        a.ui.top.left.attached.basic.button(href="/bikes")
+                            i.arrow.left.icon
+                            |Bikes
+                    .twelve.wide.center.aligned.column
+                        h1.ui.header View Bike
+                .row
+                    .ten.wide.column
+                        img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+                        if image_url
+                            img.ui.centered.image(src=image_url)
+                        each tags
+                            .ui.basic.label #{this}
+                    .five.wide.column
+                        +edit_button
+            else
+                .centered.row
+                    h1.ui.center.aligned.header Edit Bike
+                .row
+                    .twelve.wide.column
+                        .ui.form
+                            +tags
+                            +image_id
+                            +image_url
+                    .four.wide.column
+                        +edit_button
+                        #delete_bike.ui.red.icon.button
+                            i.trash.icon

@@ -64,3 +64,15 @@ template(name='edit_button')
             #edit.ui.basic.large.button(data-position="bottom center" data-tooltip='Edit')
                 i.blue.pencil.icon
                 | Edit
+                
+                
+template(name='join_button')
+    if joined
+        #leave.ui.basic.button
+            i.red.remove.icon
+            | Leave
+    else
+        #join.ui.basic.button
+            i.green.plus.icon
+            | Join
+    
