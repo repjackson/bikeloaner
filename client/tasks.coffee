@@ -7,7 +7,7 @@ Template.tasks.onCreated ->
 
 
 Template.tasks.helpers
-    questions: -> Docs.find {type: 'question'}
+    tasks: -> Docs.find {type: 'task'}
      
      
 Template.tasks.onRendered ->

@@ -1,14 +1,14 @@
 template(name='library')
     .ui.stackable.padded.grid
         .centered.row
-            h1.ui.header Library
+            .three.wide.column
+            .ten.wide.column
+                h1.ui.header Library
+            .three.wide.column
+                +add_button type='doc'
         .row
             .four.wide.column
                 +tag_facet
-                .ui.hidden.divider
-                #add_doc.ui.compact.basic.fluid.button
-                    i.green.plus.icon
-                    |Add Doc
             .twelve.wide.column
                 .ui.cards
                     each docs

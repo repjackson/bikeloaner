@@ -128,6 +128,17 @@ template(name='link')
     else
         a(href=link) #{link}
 
+template(name='toggle_follow')
+    if currentUser
+        if is_following
+            #remove_friend.ui.button
+                i.minus.large.icon
+                |unfollow
+        else
+            #add_friend.ui.button
+                i.plus.large.icon
+                |follow
+
 
 
 template(name='image_url')

@@ -1,10 +1,11 @@
 template(name='faq')
-    .ui.stackable.padded.grid
+    .ui.stackable.padded.centered.grid
         .centered.row
             h1.ui.header FAQ
-                i#add_question.link.green.plus.icon
         .centered.row
-            .fourteen.wide.column
+            // .four.wide.column
+            //     +add_button type='question'
+            .twelve.wide.column
                 .ui.styled.accordion
                     each questions
                         +question_item

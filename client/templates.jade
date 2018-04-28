@@ -35,34 +35,6 @@ template(name="tag_result")
 
 
 
-template(name='nav')
-    .ui.large.borderless.menu
-        a.ui.header.item(href='/') C&O BL
-        a.item(href='/volunteer') Volunteer
-        a.item(href='/posts') Posts
-        a.item(href='/bikes') Bikes
-        a.item(href='/library') Library
-        a.item(href='/faq') FAQ
-        a.item(href='/about') About
-        a.item(href='/events') Events
-        a.item(href='/donate') Donate
-        a.icon.item(href='/people')
-            i.users.icon
-        .right.menu
-            if currentUser
-                a.item(href="/profile/#{currentUser._id}" class="{{isActiveRoute name='view_profile'}}" data-position="bottom center" data-content="Profile")
-                    if currentUser.profile.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.profile.image_id width=50 height=50 gravity='face' crop='fill'}}")
-                    else
-                        i.user.icon
-                    span.mobile.hidden    
-                        if currentUser.name
-                            | #{currentUser.name}
-                        else
-                            | #{currentUser.username}
-                a#logout.item(href="#") Sign Out
-            else
-                a.item(href="/sign-in") Sign In
                 
                 
 template(name='donate')

@@ -61,6 +61,71 @@ template(name='doc_matches')
                     each top_doc_matches
                         +doc_match
                         
+template(name='associated_users')
+    .ui.segment
+        .ui.header 
+            i.users.icon
+            | Users
+        .ui.list
+            each users
+                .item #{first_name} #{last_name}
+            
+template(name='set_session_button')
+    .set_session_filter.ui.button(class=filter_class)
+        |#{label}
+
+template(name='set_session_item')
+    a.set_session_filter.item 
+        |#{label}
+        
+template(name='publish_button')
+    .field
+        label Status
+        if published
+            #unpublish.ui.green.button
+                |Published
+        else
+            #publish.ui.basic.button
+                |Private
+        
+template(name='call_method')
+    .call_method.ui.button call #{name}
+    
+    
+template(name='html_create')
+    if doc
+        with doc
+            if is_editing
+                .ui.labeled.fluid.input
+                    .ui.basic.label select staff
+                    input#staff(type='text' value=staff)
+            else
+                div(class=doc_classes)
+                    |#{staff}
+            // if isInRole 'admin'
+            +session_edit_icon
+    else
+        // if isInRole 'admin'
+        .ui.header no doc found
+        .create_doc.ui.basic.button
+            i.plus.icon
+            |create html with #{template_tags}
+    
+    
+    
+
+template(name='office_map')
+    .ui.segment
+        .ui.header
+            i.map.marker.icon
+            | #{geocode.formatted_address}
+        +google_places_input
+        #map
+        
+template(name='google_places_input')
+    .ui.large.fluid.icon.input
+        i.search.icon
+        input#google_places_field(type='text' placeholder='change address...')       
                         
                                         
 template(name='doc_match')                    
@@ -294,3 +359,41 @@ template(name='edit_link')
         .ui.left.icon.input
             i.linkify.icon
             input#link(type='text' value=url)
+
+
+template(name='toggle_boolean')
+    .field
+        if featured
+            #turn_on.ui.basic.icon.button
+                i.toggle.on.icon
+        else
+            #turn_off.ui.basic.icon.button
+                i.toggle.off.icon
+        if featured
+            .ui.green.basic.label #{positive_label}
+        else
+            .ui.basic.label #{negative_label}
+
+template(name='reference_office')
+    .ui.form
+        .field
+            label #{label}
+            .ui.left.icon.input
+                i.search.icon
+                +inputAutocomplete settings=settings id="search" class="" autocomplete="off" placeholder='search...'
+
+template(name='reference_customer')
+    .ui.form
+        .field
+            label #{label}
+            .ui.left.icon.input
+                i.search.icon
+                +inputAutocomplete settings=settings id="search" class="" autocomplete="off" placeholder='search...'
+
+
+
+template(name="office_result")
+    .item #{office_name} (#{jan_office_id})
+
+template(name="customer_result")
+    .item #{first_name} #{last_name}
