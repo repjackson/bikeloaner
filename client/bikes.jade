@@ -1,20 +1,23 @@
 template(name='bikes')
     .ui.stackable.padded.grid
         .centered.row
-            // h1.ui.header Bikes
-            h1.ui.header math teh fucker out of this
-            h1.ui.header we need a database solution
+            .four.wide.column
+                #add_bike.ui.large.icon.button
+                    i.green.plus.icon
+            .ten.wide.column
+                h1.ui.header
+                    i.bike.icon
+                    |Bikes
+            // h1.ui.header math teh fucker out of this
+            // h1.ui.header we need a database solution
         .row
             .four.wide.column
                 +set_view_mode view='cards' icon='clone'
                 +set_view_mode view='list' icon='list'
                 +set_view_mode view='table' icon='table'
-
+                div
                 +tag_facet
                 .ui.hidden.divider
-                #add_bike.ui.compact.basic.fluid.button
-                    i.green.plus.icon
-                    |Add Bike
             .twelve.wide.column
                 if viewing_list
                     .ui.divided.items
@@ -28,7 +31,7 @@ template(name='bikes')
                             +bike_card
 
 template(name='bike_card')
-    a.ui.card(href="/bike/#{_id}")
+    a.ui.card(href="/view/#{_id}")
         .image
             img(src="{{c.url image_id  height=300 crop='fill' gravity='face' }}")
             if image_url
@@ -39,36 +42,38 @@ template(name='bike_card')
                 
                 
                 
-template(name='bike')
+template(name='bike_view')
     .ui.stackable.padded.grid
-        with bike
-            unless editing
-                .row
-                    .three.wide.column
-                        a.ui.top.left.attached.basic.button(href="/bikes")
-                            i.arrow.left.icon
-                            |Bikes
-                    .twelve.wide.center.aligned.column
-                        h1.ui.header View Bike
-                .row
-                    .ten.wide.column
-                        img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
-                        if image_url
-                            img.ui.centered.image(src=image_url)
-                        each tags
-                            .ui.basic.label #{this}
-                    .five.wide.column
-                        +edit_button
-            else
-                .centered.row
-                    h1.ui.center.aligned.header Edit Bike
-                .row
-                    .twelve.wide.column
-                        .ui.form
-                            +tags
-                            +image_id
-                            +image_url
-                    .four.wide.column
-                        +edit_button
-                        #delete_bike.ui.red.icon.button
-                            i.trash.icon
+        .row
+            .three.wide.center.aligned.column
+                a.ui.button(href="/bikes")
+                    i.arrow.left.icon
+                    |Bikes
+            .ten.wide.center.aligned.column
+                h1.ui.header View Bike
+            .three.wide.center.aligned.column
+                +edit_button
+        .row
+            .ten.wide.column
+                img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
+                if image_url
+                    img.ui.centered.image(src=image_url)
+                each tags
+                    .ui.basic.label #{this}
+            .five.wide.column
+
+
+template(name='bike_edit')
+    .ui.stackable.padded.grid
+        .centered.row
+            h1.ui.center.aligned.header Edit Bike
+        .row
+            .twelve.wide.column
+                .ui.form
+                    +tags
+                    +image_id
+                    +image_url
+            .four.wide.column
+                +edit_button
+                #delete_bike.ui.red.icon.button
+                    i.trash.icon

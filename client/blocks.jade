@@ -1,12 +1,12 @@
 template(name='mark_read')
     // if read
-    //     .mark_unread.ui.basic.button 
+    //     .mark_unread.ui.button 
     //         +icon48 name='read-message' classes='avatar'
     //         |Mark Unread
     // else
     if currentUser
         unless read
-            .mark_read.ui.basic.icon.button(data-tooltip='Mark Read')
+            .mark_read.ui.icon.button(data-tooltip='Mark Read')
                 +icon48 name='message' classes='ui mini inline image'
 
 template(name='read_by_list')
@@ -25,7 +25,7 @@ template(name='read_by_list')
                         .description
                             +tiny_color_dots
                             // each five_tags
-                            //     .ui.basic.label #{this}
+                            //     .ui.label #{this}
 
 template(name='bookmarked_by_list')
     // if read_by.count
@@ -43,7 +43,7 @@ template(name='bookmarked_by_list')
                         .description
                             +tiny_color_dots
                             // each five_tags
-                            //     .ui.basic.label #{this}
+                            //     .ui.label #{this}
 
 
 template(name='doc_matches')
@@ -53,7 +53,7 @@ template(name='doc_matches')
             |Top Doc Matches (#{top_doc_matches.length})
             i.dropdown.icon
             if currentUser
-                #compute_doc_matches.ui.icon.basic.button(data-tooltip='Compute Matches')
+                #compute_doc_matches.ui.icon.button(data-tooltip='Compute Matches')
                     i.refresh.icon
         .content.match_content
             if top_doc_matches
@@ -70,12 +70,12 @@ template(name='doc_match')
                 +icon48 name='query-outer-join' classes='avatar'
                 |Intersection Tags (#{intersection_tags_count})
                 each intersection_tags
-                    .ui.basic.label #{this}
+                    .ui.label #{this}
             .description
                 +icon48 name='tags' classes='avatar'
                 | Document Tags
                 each tags
-                    .ui.small.basic.label #{this}
+                    .ui.small.label #{this}
             // .description
             //     |#{match_doc.type} entry by
             //     img.ui.avatar.image(src="{{c.url match_doc.author.profile.image_id width=100 height=100 gravity='face' crop='fill'}}")
@@ -107,11 +107,11 @@ template(name='icon96')
 
 template(name='published_status')
     if published
-        .ui.basic.blue.large.label
+        .ui.blue.large.label
             +icon48 name='eye' classes='ui inline tiny image'
             |Published
     else
-        .ui.basic.large.label
+        .ui.large.label
             +icon48 name='invisible' classes='ui inline tiny image'
             | Not Published
             
@@ -144,13 +144,13 @@ template(name='recipient_info')
         
 template(name='published_label')
     if is_published
-        .ui.basic.label(data-tooltip='Published')
+        .ui.label(data-tooltip='Published')
             +icon48 name='eye'
     if is_anonymous
-        .ui.basic.label(data-tooltip='Published')
+        .ui.label(data-tooltip='Published')
             +icon48 name='ignore'
     if is_private
-        .ui.basic.label(data-tooltip='Private')
+        .ui.label(data-tooltip='Private')
             +icon48 name='invisible'
 
 
@@ -160,10 +160,137 @@ template(name='named_content')
             +content
             +edit_button
     else
-        #create_doc.ui.basic.button Create Doc
+        #create_doc.ui.button Create Doc
         
         
 template(name='set_view_mode')
     #set_view_mode.ui.big.icon.button(title=label class=view_mode_button_class)
         i.large.icon(class=icon)
         
+        
+template(name='add_button')
+    #add.ui.large.icon.button(title='add')
+        i.plus.icon
+        // |#{label}
+        
+template(name='doc_edit')
+    with doc
+        +Template.dynamic template=type_edit
+
+template(name='doc_view')
+    with doc
+        +Template.dynamic template=type_view
+                            
+
+
+template(name='save_button')
+    a.ui.big.icon.button(href="/view/#{_id}") 
+        i.checkmark.green.icon
+        // strong save
+        
+// template(name='edit_button')
+//     a.ui.icon.big.button(href="/edit/#{_id}" title='Edit') 
+//         i.edit.icon
+//         // strong edit
+
+template(name='view_button')
+    a.ui.large.icon.button(href="/view/#{_id}" title='View Details') 
+        i.chevron.right.icon
+
+
+template(name='edit_image_field')
+    .ui.segment
+        if image_id
+            .ui.image
+                img(src="{{c.url image_id }}")
+                a#remove_photo.ui.top.left.attached.link.label remove
+                // .ui.bottom.right.attached.label Image Id: #{image_id}
+        else
+            .ui.header Upload Image
+            input(type='file' name='upload_picture' accept='image/*')
+        // if isInRole 'admin'
+        //     .field
+        //         label or Choose Cloudinary Image Id
+        //         input#input_image_id(type='text')
+    
+
+
+template(name='edit_number_field')
+    .field
+        label #{label}
+        .ui.left.icon.input
+            if icon
+                i.icon(class=icon)
+            input#number_field(type='number' min='0' value=key_value)
+
+
+template(name='edit_textarea')
+    .field
+        label #{label}
+        textarea#textarea(rows='10') #{key_value}
+
+
+template(name='edit_text_field')
+    .ui.labeled.fluid.input
+        .ui.label 
+            if icon
+                i.icon(class=icon)
+            |#{label}
+        input#text_field(type='text' value=key_value)
+
+        
+template(name='edit_html_field')
+    .field
+        label #{label}
+        .froala-container
+            +froalaReactive getFEContext
+        
+        
+template(name='edit_date_field')            
+    .field
+        label #{label}
+        .ui.left.icon.input
+            if icon
+                i.icon(class=icon)
+            input#date_field(type='date' value=key_value)        
+        
+        
+template(name='complete')            
+    .field
+        label completed
+        #mark_complete.ui.button(class=complete_class) yes 
+        #mark_incomplete.ui.button(class=incomplete_class) no 
+
+
+template(name='list_item')
+    .item
+        i.large.icon(class=icon title=key)
+        .content
+            .description 
+                |#{label}
+                strong #{key_value}
+
+template(name='toggle_key')
+    #toggle_key.ui.button(class=toggle_key_button_class) #{label}
+
+template(name='vote_button')
+    i.thumbs.up.link.large.icon.vote_up(class=vote_up_button_class)
+    i.thumbs.down.large.link.icon.vote_down(class=vote_down_button_class)
+    |#{points}
+
+template(name='link_button')    
+    a.ui.big.icon.basic.circular.button(href=link title=label)
+        i.large.icon(class=icon)
+
+
+template(name='delete_button')
+    #delete.ui.red.icon.button(title='delete')
+        i.trash.icon
+        
+        
+template(name='edit_link')
+    .field
+        label link (include http://)
+        .ui.left.icon.input
+            i.linkify.icon
+            input#link(type='text' value=url)

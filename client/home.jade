@@ -2,38 +2,41 @@ template(name='home')
     .row
         +slider
     .row
-        a.ui.button(href="/slides") Slides
+        a.ui.button(href="/slides") Edit Slides
     .row
         +homepage_stats
     
     
 template(name='homepage_stats')
-    .ui.two.column.centered.grid
-        .column
-            .ui.statistic
-                .value 21,000
-                .label Visitors
-            .ui.statistic
-                .value 17,000
-                .label Hours
-        .column
-            .ui.statistic
-                .value 21,000
-                .label Visitors
-            .ui.statistic
-                .value 21,000
-                .label Visitors
+    .ui.centered.padded.grid
+        .centered.row
+            .three.wide.column
+                .ui.statistic
+                    .value 21,000
+                    .label Visitors
+            .three.wide.column
+                .ui.statistic
+                    .value 17,000
+                    .label Volunteer Hours
+            .three.wide.column
+                .ui.statistic
+                    .value 543
+                    .label Bikes Lended
+            .three.wide.column
+                .ui.statistic
+                    .value 1000's
+                    .label Smiles
         
 
 
 
 template(name='slider')
-    #layerslider(style='width:909px; height: 600px;')
+    #layerslider(style='width:909px; height: 400px;')
         each slides
             .ls-slide(data-ls='slidedelay: 3000;')
                 if image_url
                     img.ls-bg(src=image_url)
-                img.ls-bg(src="{{c.url image_id }}", alt='Slide background' )
+                img.ls-bg(src="{{c.url image_id height=400 crop='crop'}}", alt='Slide background' )
                 .ls-l(style="top: 20%; height: 170px; width: 170px; left: 20%;" )
                     // a(href='/join')
                     h1: title
@@ -45,20 +48,21 @@ template(name='slider')
                     
                     
 template(name='slides')
-    .centered.row
-        .three.wide.column
-            a.ui.button(href='/') Home
-        .twelve.wide.column
-            h1.ui.header Slides
-    .row
-        .four.wide.column
-            #add_slide.ui.compact.basic.fluid.button
-                i.green.plus.icon
-                |Add slide
-        .twelve.wide.column
-            .ui.cards
-                each slides
-                    +slide_card
+    .ui.padded.grid
+        .centered.row
+            .three.wide.column
+                a.ui.button(href='/') Home
+            .twelve.wide.column
+                h1.ui.header Slides
+        .row
+            .four.wide.column
+                #add_slide.ui.compact.basic.fluid.button
+                    i.green.plus.icon
+                    |Add slide
+            .twelve.wide.column
+                .ui.cards
+                    each slides
+                        +slide_card
                     
                     
 template(name='slide_card')

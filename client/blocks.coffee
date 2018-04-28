@@ -37,3 +37,10 @@ Template.named_content.helpers
     named_doc: ->
         Docs.findOne 
             name: Template.currentData().name
+            
+            
+Template.add_button.events
+    'click #add': -> 
+        id = Docs.insert type:@type
+        FlowRouter.go "/edit/#{id}"
+            

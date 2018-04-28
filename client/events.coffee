@@ -9,26 +9,9 @@ Template.events.onCreated ->
 Template.events.helpers
     events: -> Docs.find {type: 'event'}
             
-Template.events.events
-    'click #add_event': ->
-        id = Docs.insert
-            type: 'event'
-        FlowRouter.go "/event/#{id}"
-        Session.set 'editing', true
-        
-        
-FlowRouter.route '/event/:doc_id', action: (params) ->
-    BlazeLayout.render 'layout',
-        main: 'event'
-
-Template.event.onCreated ->
-    @autorun -> Meteor.subscribe 'doc', FlowRouter.getParam('doc_id')
-
-Template.event.helpers
-    event: -> Docs.findOne FlowRouter.getParam('doc_id')
     
     
-Template.event.events
+Template.event_edit.events
     'click #delete': ->
         swal {
             title: 'Delete?'

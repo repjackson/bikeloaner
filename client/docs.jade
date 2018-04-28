@@ -25,7 +25,7 @@ template(name='doc_card')
             if youtube
                 +youtube
         .content
-            |!{clipped_content}
+            |!{content}
             each tags
                 .ui.compact.button.doc_tag(class=tag_class) #{this}
             a.ui.right.floated.basic.icon.button(href="/doc/#{_id}")
@@ -41,19 +41,21 @@ template(name='doc')
                         a.ui.top.left.attached.basic.button(href="/library")
                             i.arrow.left.icon
                             |Library
-                    .twelve.wide.center.aligned.column
+                    .ten.wide.center.aligned.column
                         h1.ui.header View Document
+                    .three.wide.center.aligned.column
+                        +edit_button
                 .row
                     .ten.wide.column
                         img.ui.centered.image(src="{{c.url image_id height=500 width=800 background='white' crop='lpad'}}")
                         if image_url
                             img.ui.centered.image(src=image_url)
-                        each tags
-                            .ui.basic.label #{this}
                         +youtube
                         +content
                     .five.wide.column
-                        +edit_button
+                        each tags
+                            .ui.basic.label #{this}
+                        +author_info
             else
                 .centered.row
                     h1.ui.center.aligned.header Edit Document

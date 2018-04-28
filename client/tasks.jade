@@ -2,22 +2,20 @@ template(name='tasks')
     .ui.stackable.padded.grid
         .centered.row
             h1.ui.header Tasks
-                i#add_task.link.green.plus.icon
         .centered.row
+            .four.wide.column
+                +add_button type='task'
             .fourteen.wide.column
-                .ui.styled.accordion
+                .ui.list
                     each tasks
                         +task_item
                 
                 
 template(name='task_item')
-    .title
-        |#{title}
-        i.dropdown.icon
-    .content
-        |!{content}
-        a.ui.icon.button(href="/task/#{_id}")
-            i.right.arrow.icon
+    .item
+        .description
+            |#{text}
+        .right.floated
             
             
 template(name='task')
@@ -43,3 +41,73 @@ template(name='task')
                 if editing
                     #delete_bike.ui.red.icon.button
                         i.trash.icon
+                        
+                        
+template(name='task_edit')
+    .ui.padded.stackable.grid
+        .centered.row
+            .three.wide.column
+                +save_button
+            .ten.wide.column
+                h1.ui.center.aligned.header edit task
+            .three.wide.column
+                #delete.ui.icon.button
+                    i.trash.icon
+        .row
+            .eight.wide.column
+                .ui.form
+                    +edit_text_field key='text' label='text' icon='left align'
+                    +edit_date_field key='task_date' label='task Date' icon='calendar'
+                    +edit_text_field key='task_status' label='task Status' icon='checkmark'
+                        
+                        
+template(name='task_view')
+    .ui.padded.stackable.centered.grid
+        .centered.row
+            .three.wide.center.aligned.column
+                +link_button link='/tasks' label='tasks' icon='clipboard'
+            .ten.wide.center.aligned.column
+                h1.ui.header task ##{task_number}
+            .three.wide.center.aligned.column
+                +edit_button
+
+        .row
+            .four.wide.column
+                .ui.segment
+                    .ui.header
+                        +author_info
+                    h2.ui.sub.header #{when}
+                    .ui.large.relaxed.list
+                    .ui.header #{formal_when}
+            .eight.wide.column
+                .ui.basic.segment
+                    .large130 #{text}
+                if image_id
+                    img.ui.centered.image(src="{{c.url image_id height=500 crop='fit'}}")
+                    +call_visual_analysis
+                    if visual
+                        each visual
+                            .ui.basic.label(title=type_hierarchy)
+                                | #{class} {{to_percent score }}%
+                // +semantic_roles
+                // +relations
+                // .ui.styled.accordion
+                //     .title 
+                //         i.code.icon
+                //         |full analysis data
+                //         i.dropdown.icon
+                //     .content
+                //         +jsonView(json=watson)
+                .ui.hidden.divider
+                // +keywords
+                +comments
+                // +task_status
+            // .four.wide.column
+                // with office
+                //     +office_card
+                // if customer
+                //     with customer
+                //         +person_card
+                // +personality
+                // +consumption_preferences
+                        
