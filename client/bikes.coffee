@@ -3,12 +3,21 @@ FlowRouter.route '/bikes', action: ->
         main: 'bikes'
 
 Template.bikes.onCreated ->
-    @autorun -> Meteor.subscribe('facet', selected_tags.array(), 'bike')
+    @autorun => Meteor.subscribe 'facet', 
+        selected_tags.array()
+        # selected_keywords.array()
+        # selected_author_ids.array()
+        # selected_location_tags.array()
+        # selected_timestamp_tags.array()
+        type='bike'
 
 
 Template.bikes.helpers
     bikes: -> Docs.find {type: 'bike'}
-            
+    viewing_list: -> Session.equals 'view_mode','list'
+    viewing_table: -> Session.equals 'view_mode','table'
+    viewing_cards: -> Session.equals 'view_mode','cards'
+
 Template.bikes.events
     'click #add_bike': ->
         id = Docs.insert

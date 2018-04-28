@@ -6,7 +6,7 @@ template(name='mark_read')
     // else
     if currentUser
         unless read
-            .mark_read.ui.basic.circular.icon.button(data-tooltip='Mark Read')
+            .mark_read.ui.basic.icon.button(data-tooltip='Mark Read')
                 +icon48 name='message' classes='ui mini inline image'
 
 template(name='read_by_list')
@@ -161,4 +161,9 @@ template(name='named_content')
             +edit_button
     else
         #create_doc.ui.basic.button Create Doc
+        
+        
+template(name='set_view_mode')
+    #set_view_mode.ui.big.icon.button(title=label class=view_mode_button_class)
+        i.large.icon(class=icon)
         

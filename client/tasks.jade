@@ -1,0 +1,45 @@
+template(name='tasks')
+    .ui.stackable.padded.grid
+        .centered.row
+            h1.ui.header Tasks
+                i#add_task.link.green.plus.icon
+        .centered.row
+            .fourteen.wide.column
+                .ui.styled.accordion
+                    each tasks
+                        +task_item
+                
+                
+template(name='task_item')
+    .title
+        |#{title}
+        i.dropdown.icon
+    .content
+        |!{content}
+        a.ui.icon.button(href="/task/#{_id}")
+            i.right.arrow.icon
+            
+            
+template(name='task')
+    with task
+        .row
+            .three.wide.column
+                a.ui.top.left.attached.basic.button(href="/tasks")
+                    i.arrow.left.icon
+                    |task
+            .twelve.wide.center.aligned.column
+                h1.ui.header
+                    if editing
+                        |Edit
+                    else
+                        |View
+                    |#{title}
+        .row
+            .ten.wide.column
+                +title
+                +content
+            .five.wide.column
+                +edit_button
+                if editing
+                    #delete_bike.ui.red.icon.button
+                        i.trash.icon

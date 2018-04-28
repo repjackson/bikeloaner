@@ -1,19 +1,31 @@
 template(name='bikes')
     .ui.stackable.padded.grid
         .centered.row
-            h1.ui.header Bikes
+            // h1.ui.header Bikes
+            h1.ui.header math teh fucker out of this
+            h1.ui.header we need a database solution
         .row
             .four.wide.column
+                +set_view_mode view='cards' icon='clone'
+                +set_view_mode view='list' icon='list'
+                +set_view_mode view='table' icon='table'
+
                 +tag_facet
                 .ui.hidden.divider
                 #add_bike.ui.compact.basic.fluid.button
                     i.green.plus.icon
                     |Add Bike
             .twelve.wide.column
-                .ui.cards
-                    each bikes
-                        +bike_card
-
+                if viewing_list
+                    .ui.divided.items
+                        each bikes
+                            +bike_item
+                if viewing_table
+                    +table type='bike'
+                if viewing_cards
+                    .ui.centered.stackable.cards
+                        each bikes
+                            +bike_card
 
 template(name='bike_card')
     a.ui.card(href="/bike/#{_id}")
